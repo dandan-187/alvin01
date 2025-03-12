@@ -6,16 +6,18 @@ body {
     color: #00ffcc;
     text-align: center;
     padding: 20px;
+    margin: 0;
 }
 
 .container {
-    width: 90%;
+    width: 95%;
     margin: auto;
+    max-width: 600px;
 }
 
 h1 {
-    font-size: 2em;
-    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+    font-size: 1.8em;
+    text-shadow: 0 0 10px #00ffcc;
 }
 
 table {
@@ -25,20 +27,19 @@ table {
     background: rgba(0, 0, 0, 0.6);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 0 20px #00ffcc;
+    box-shadow: 0 0 15px #00ffcc;
 }
 
 th, td {
     border: 1px solid #00ffcc;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
     color: #ffffff;
+    font-size: 0.9em;
 }
 
 th {
     background: rgba(0, 255, 204, 0.2);
-    font-size: 1.2em;
-    cursor: pointer;
     text-shadow: 0 0 10px #00ffcc;
 }
 
@@ -48,12 +49,12 @@ td {
 
 input {
     width: 100%;
-    padding: 8px;
+    padding: 6px;
+    font-size: 0.9em;
     background: transparent;
     border: none;
     color: #ffffff;
     text-align: center;
-    font-size: 1em;
     outline: none;
 }
 
@@ -62,9 +63,9 @@ input:focus {
 }
 
 button {
-    margin-top: 20px;
-    padding: 12px 25px;
-    font-size: 1.2em;
+    width: 100%;
+    padding: 15px;
+    font-size: 1em;
     color: #000;
     background: #00ffcc;
     border: none;
@@ -72,11 +73,29 @@ button {
     cursor: pointer;
     transition: 0.3s;
     font-weight: bold;
+    margin-top: 15px;
     box-shadow: 0 0 10px #00ffcc;
 }
 
 button:hover {
     background: #ffffff;
     color: #00ffcc;
-    box-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+    box-shadow: 0 0 20px #00ffcc;
+}
+
+/* 🔥 Mobile Optimization */
+@media (max-width: 600px) {
+    th, td {
+        font-size: 0.8em;
+        padding: 8px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    button {
+        font-size: 0.9em;
+        padding: 12px;
+    }
 }
