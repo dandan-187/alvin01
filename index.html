@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratory Equipment Inventory Report</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="brain.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Laboratory Equipment Inventory Report</h1>
+        <table id="inventoryTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Item ID</th>
+                    <th onclick="sortTable(1)">Item Name</th>
+                    <th onclick="sortTable(2)">Category</th>
+                    <th onclick="sortTable(3)">Quantity</th>
+                    <th onclick="sortTable(4)">Condition</th>
+                    <th onclick="sortTable(5)">Last Checked</th>
+                    <th onclick="sortTable(6)">Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>001</td><td>Microscope</td><td>Optical Equipment</td><td>5</td><td>Good</td><td>March 10, 2025</td><td>Lab 1, Shelf A</td></tr>
+                <tr><td>002</td><td>Beaker (500 mL)</td><td>Glassware</td><td>20</td><td>Excellent</td><td>March 5, 2025</td><td>Lab 1, Shelf B</td></tr>
+                <tr><td>003</td><td>Test Tube Rack</td><td>Equipment</td><td>10</td><td>Good</td><td>March 12, 2025</td><td>Lab 2, Shelf A</td></tr>
+                <tr><td>004</td><td>pH Meter</td><td>Electronic Devices</td><td>3</td><td>Fair</td><td>March 1, 2025</td><td>Lab 3, Shelf C</td></tr>
+                <tr><td>005</td><td>Bunsen Burner</td><td>Heating Equipment</td><td>7</td><td>Excellent</td><td>March 3, 2025</td><td>Lab 1, Shelf C</td></tr>
+                <tr><td>006</td><td>Thermometer (Digital)</td><td>Measuring Tools</td><td>15</td><td>Good</td><td>March 12, 2025</td><td>Lab 2, Shelf B</td></tr>
+                <tr><td>007</td><td>Laboratory Gloves (Box)</td><td>Safety Equipment</td><td>50</td><td>New</td><td>March 12, 2025</td><td>Lab 3, Shelf A</td></tr>
+                <tr><td>008</td><td>Centrifuge</td><td>Laboratory Machine</td><td>2</td><td>Good</td><td>February 20, 2025</td><td>Lab 4, Center Area</td></tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
