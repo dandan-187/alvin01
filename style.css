@@ -1,35 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #0d0d0d;
+    color: #00ffcc;
     text-align: center;
+    padding: 20px;
 }
 
 .container {
-    width: 80%;
+    width: 90%;
     margin: auto;
+}
+
+h1 {
+    font-size: 2em;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px #00ffcc;
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
+    border: 1px solid #00ffcc;
+    padding: 15px;
     text-align: center;
+    color: #ffffff;
+}
+
+th {
+    background: rgba(0, 255, 204, 0.2);
+    font-size: 1.2em;
+    cursor: pointer;
+    text-shadow: 0 0 10px #00ffcc;
+}
+
+td {
+    background: rgba(0, 0, 0, 0.3);
 }
 
 input {
     width: 100%;
-    padding: 5px;
+    padding: 8px;
+    background: transparent;
     border: none;
+    color: #ffffff;
     text-align: center;
+    font-size: 1em;
+    outline: none;
+}
+
+input:focus {
+    border-bottom: 2px solid #00ffcc;
 }
 
 button {
     margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    color: #000;
+    background: #00ffcc;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+    box-shadow: 0 0 10px #00ffcc;
+}
+
+button:hover {
+    background: #ffffff;
+    color: #00ffcc;
+    box-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc;
 }
