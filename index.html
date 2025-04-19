@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Neon Lab Inventory</title>
+  <title>Lab Equipment Inventory</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
@@ -19,18 +19,26 @@
     .container {
       width: 95%;
       margin: auto;
-      max-width: 600px;
+      max-width: 800px;
     }
 
     h1 {
       font-size: 2em;
       text-shadow: 0 0 10px #00ffcc;
+      margin-bottom: 10px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      margin-top: 10px;
       background: rgba(0, 0, 0, 0.6);
       border-radius: 10px;
       overflow: hidden;
@@ -81,7 +89,6 @@
       cursor: pointer;
       transition: 0.3s;
       font-weight: bold;
-      margin-top: 15px;
       box-shadow: 0 0 10px #00ffcc;
     }
 
@@ -109,8 +116,8 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🔬 INVENTORY NG UTOL NI ALVIN 🚀</h1>
+  <div class="container" id="captureArea">
+    <h1>🔬 Lab Equipment Inventory System 🚀</h1>
     <table id="inventoryTable">
       <thead>
         <tr>
@@ -171,11 +178,17 @@
         </tr>
       </tbody>
     </table>
-    <button id="clearButton">Clear All</button>
+
+    <div class="button-group">
+      <button id="saveBtn">📸 Save as PNG</button>
+      <button id="clearButton">🧹 Clear All</button>
+    </div>
   </div>
 
+  <!-- html2canvas CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
-    // Auto-resize inputs based on content
+    // Resize input dynamically
     function autoResizeInput(input) {
       input.style.width = '1ch';
       input.style.width = (input.value.length + 1) + 'ch';
@@ -186,11 +199,23 @@
       input.addEventListener('input', () => autoResizeInput(input));
     });
 
-    // Clear all button
+    // Clear All with Confirmation
     document.getElementById("clearButton").addEventListener("click", function () {
-      document.querySelectorAll("input").forEach(input => {
-        input.value = "";
-        autoResizeInput(input);
+      if (confirm("Are you sure you want to delete all entries?")) {
+        document.querySelectorAll("input").forEach(input => {
+          input.value = "";
+          autoResizeInput(input);
+        });
+      }
+    });
+
+    // Save as PNG
+    document.getElementById("saveBtn").addEventListener("click", function () {
+      html2canvas(document.querySelector("#captureArea")).then(canvas => {
+        let link = document.createElement('a');
+        link.download = 'lab_inventory.png';
+        link.href = canvas.toDataURL("image/png");
+        link.click();
       });
     });
   </script>
