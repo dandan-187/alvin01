@@ -3,221 +3,185 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lab Equipment Inventory</title>
+  <title>Jollibee Ordering App</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
     body {
-      font-family: 'Orbitron', sans-serif;
-      background-color: #0d0d0d;
-      color: #00ffcc;
-      text-align: center;
-      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
+      padding: 0;
+      background-color: #fff8f0;
+    }
+
+    header {
+      background-color: #d10000;
+      color: white;
+      padding: 1rem;
+      text-align: center;
     }
 
     .container {
-      width: 95%;
+      padding: 1rem;
+      max-width: 500px;
       margin: auto;
-      max-width: 800px;
     }
 
-    h1 {
-      font-size: 2em;
-      text-shadow: 0 0 10px #00ffcc;
-      margin-bottom: 10px;
-    }
-
-    .button-group {
+    .menu-item {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    table {
+    .item-info {
+      flex: 1 1 60%;
+    }
+
+    .item-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    input[type="number"] {
+      width: 60px;
+      padding: 0.25rem;
+    }
+
+    .total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: right;
+      margin-top: 1rem;
+    }
+
+    .order-btn {
+      display: block;
       width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 15px #00ffcc;
-    }
-
-    th, td {
-      border: 1px solid #00ffcc;
-      padding: 10px;
-      text-align: center;
-      color: #ffffff;
-      font-size: 1.1em;
-    }
-
-    th {
-      background: rgba(0, 255, 204, 0.2);
-      text-shadow: 0 0 10px #00ffcc;
-    }
-
-    td {
-      background: rgba(0, 0, 0, 0.3);
-    }
-
-    input {
-      min-width: 40px;
-      padding: 6px;
-      font-size: 1.1em;
-      background: transparent;
-      border: none;
-      color: #ffffff;
-      text-align: center;
-      outline: none;
-      width: auto;
-    }
-
-    input:focus {
-      border-bottom: 2px solid #00ffcc;
-    }
-
-    button {
-      width: 100%;
-      padding: 15px;
-      font-size: 1.1em;
-      color: #000;
-      background: #00ffcc;
+      padding: 1rem;
+      background-color: #d10000;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
       border: none;
       border-radius: 5px;
+      margin-top: 1rem;
       cursor: pointer;
-      transition: 0.3s;
-      font-weight: bold;
-      box-shadow: 0 0 10px #00ffcc;
-    }
-
-    button:hover {
-      background: #ffffff;
-      color: #00ffcc;
-      box-shadow: 0 0 20px #00ffcc;
     }
 
     @media (max-width: 600px) {
-      th, td {
-        font-size: 1em;
-        padding: 8px;
+      .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
       }
-
-      h1 {
-        font-size: 1.7em;
-      }
-
-      button {
-        font-size: 1em;
-        padding: 12px;
+      .item-controls {
+        margin-top: 0.5rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container" id="captureArea">
-    <h1>🔬 Lab Equipment Inventory System 🚀</h1>
-    <table id="inventoryTable">
-      <thead>
-        <tr>
-          <th>Item ID</th>
-          <th>Item Name</th>
-          <th>Category</th>
-          <th>Quantity</th>
-          <th>Condition</th>
-          <th>Last Checked</th>
-          <th>Location</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="text" value="001"></td>
-          <td><input type="text" value="Microscope"></td>
-          <td><input type="text" value="Optical Equipment"></td>
-          <td><input type="text" value="5"></td>
-          <td><input type="text" value="Good"></td>
-          <td><input type="text" value="March 10, 2025"></td>
-          <td><input type="text" value="Lab 1, Shelf A"></td>
-        </tr>
-        <tr>
-          <td><input type="text" value="002"></td>
-          <td><input type="text" value="Beaker (500 mL)"></td>
-          <td><input type="text" value="Glassware"></td>
-          <td><input type="text" value="20"></td>
-          <td><input type="text" value="Excellent"></td>
-          <td><input type="text" value="March 5, 2025"></td>
-          <td><input type="text" value="Lab 1, Shelf B"></td>
-        </tr>
-        <tr>
-          <td><input type="text" value="003"></td>
-          <td><input type="text" value="Test Tube Rack"></td>
-          <td><input type="text" value="Equipment"></td>
-          <td><input type="text" value="10"></td>
-          <td><input type="text" value="Good"></td>
-          <td><input type="text" value="March 12, 2025"></td>
-          <td><input type="text" value="Lab 2, Shelf A"></td>
-        </tr>
-        <tr>
-          <td><input type="text" value="004"></td>
-          <td><input type="text" value="pH Meter"></td>
-          <td><input type="text" value="Electronic Devices"></td>
-          <td><input type="text" value="3"></td>
-          <td><input type="text" value="Fair"></td>
-          <td><input type="text" value="March 1, 2025"></td>
-          <td><input type="text" value="Lab 3, Shelf C"></td>
-        </tr>
-        <tr>
-          <td><input type="text" value="005"></td>
-          <td><input type="text" value="Bunsen Burner"></td>
-          <td><input type="text" value="Heating Equipment"></td>
-          <td><input type="text" value="7"></td>
-          <td><input type="text" value="Excellent"></td>
-          <td><input type="text" value="March 3, 2025"></td>
-          <td><input type="text" value="Lab 1, Shelf C"></td>
-        </tr>
-      </tbody>
-    </table>
+  <header>
+    <h1>Jollibee Menu</h1>
+  </header>
 
-    <div class="button-group">
-      <button id="saveBtn">📸 Save as PNG</button>
-      <button id="clearButton">🧹 Clear All</button>
+  <div class="container">
+    <div class="menu-item">
+      <div class="item-info">
+        <h3>Chickenjoy</h3>
+        <p>₱99.00</p>
+      </div>
+      <div class="item-controls">
+        <label>Qty:</label>
+        <input type="number" min="0" value="0" data-price="99">
+      </div>
     </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <h3>Jolly Spaghetti</h3>
+        <p>₱60.00</p>
+      </div>
+      <div class="item-controls">
+        <label>Qty:</label>
+        <input type="number" min="0" value="0" data-price="60">
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <h3>Yumburger</h3>
+        <p>₱45.00</p>
+      </div>
+      <div class="item-controls">
+        <label>Qty:</label>
+        <input type="number" min="0" value="0" data-price="45">
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-info">
+        <h3>Peach Mango Pie</h3>
+        <p>₱35.00</p>
+      </div>
+      <div class="item-controls">
+        <label>Qty:</label>
+        <input type="number" min="0" value="0" data-price="35">
+      </div>
+    </div>
+
+    <div class="total" id="total">
+      Total: ₱0.00
+    </div>
+
+    <button class="order-btn" onclick="placeOrder()">Place Order</button>
   </div>
 
-  <!-- html2canvas CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
-    // Resize input dynamically
-    function autoResizeInput(input) {
-      input.style.width = '1ch';
-      input.style.width = (input.value.length + 1) + 'ch';
+    const qtyInputs = document.querySelectorAll('input[type="number"]');
+    const totalDisplay = document.getElementById('total');
+
+    qtyInputs.forEach(input => {
+      input.addEventListener('input', updateTotal);
+    });
+
+    function updateTotal() {
+      let total = 0;
+      qtyInputs.forEach(input => {
+        const price = parseFloat(input.dataset.price);
+        const qty = parseInt(input.value) || 0;
+        total += price * qty;
+      });
+      totalDisplay.textContent = `Total: ₱${total.toFixed(2)}`;
     }
 
-    document.querySelectorAll('input').forEach(input => {
-      autoResizeInput(input);
-      input.addEventListener('input', () => autoResizeInput(input));
-    });
+    function placeOrder() {
+      let orderSummary = "Your Order:\n";
+      let total = 0;
 
-    // Clear All with Confirmation
-    document.getElementById("clearButton").addEventListener("click", function () {
-      if (confirm("Are you sure you want to delete all entries?")) {
-        document.querySelectorAll("input").forEach(input => {
-          input.value = "";
-          autoResizeInput(input);
-        });
-      }
-    });
+      qtyInputs.forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        const price = parseFloat(input.dataset.price);
+        const itemName = input.closest('.menu-item').querySelector('h3').textContent;
 
-    // Save as PNG
-    document.getElementById("saveBtn").addEventListener("click", function () {
-      html2canvas(document.querySelector("#captureArea")).then(canvas => {
-        let link = document.createElement('a');
-        link.download = 'lab_inventory.png';
-        link.href = canvas.toDataURL("image/png");
-        link.click();
+        if (qty > 0) {
+          orderSummary += `- ${itemName} x ${qty} = ₱${(qty * price).toFixed(2)}\n`;
+          total += qty * price;
+        }
       });
-    });
+
+      orderSummary += `\nTotal: ₱${total.toFixed(2)}`;
+
+      if (total > 0) {
+        alert(orderSummary);
+      } else {
+        alert("Please select at least one item.");
+      }
+    }
   </script>
 </body>
 </html>
