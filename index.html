@@ -130,6 +130,33 @@
       background-color: #b30000;
     }
 
+    /* Receipt styles */
+    #receipt {
+      background: white;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      display: none;
+      font-family: monospace;
+    }
+
+    #receipt h2 {
+      text-align: center;
+      color: var(--main-red);
+    }
+
+    #receipt p {
+      margin: 0.5rem 0;
+    }
+
+    #receipt-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
     @media (max-width: 600px) {
       .menu-item {
         flex-direction: column;
@@ -236,8 +263,20 @@
 
     <div class="total" id="total">Total: ₱0.00</div>
     <button class="order-btn" onclick="placeOrder()">Place Order</button>
+
+    <!-- Receipt Section -->
+    <div id="receipt">
+      <h2>🧾 Jollibee Receipt</h2>
+      <div id="receipt-body"></div>
+      <p id="receipt-total" style="text-align:right; font-weight:bold;"></p>
+      <div id="receipt-buttons">
+        <button class="order-btn" style="width:auto;" onclick="printReceipt()">🖨️ Print</button>
+        <button class="order-btn" style="width:auto;" onclick="saveReceiptAsImage()">💾 Save as PNG</button>
+      </div>
+    </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
     const qtyInputs = document.querySelectorAll('input[type="number"]');
     const totalDisplay = document.getElementById('total');
@@ -259,8 +298,13 @@
     }
 
     function placeOrder() {
-      let orderSummary = "Your Order:\n";
+      const receipt = document.getElementById('receipt');
+      const receiptBody = document.getElementById('receipt-body');
+      const receiptTotal = document.getElementById('receipt-total');
+      receiptBody.innerHTML = '';
+
       let total = 0;
+      let hasItems = false;
 
       qtyInputs.forEach(input => {
         const qty = parseInt(input.value) || 0;
@@ -268,18 +312,43 @@
         const itemName = input.closest('.menu-item').querySelector('h3').textContent;
 
         if (qty > 0) {
-          orderSummary += `- ${itemName} x ${qty} = ₱${(qty * price).toFixed(2)}\n`;
+          hasItems = true;
+          const itemTotal = (qty * price).toFixed(2);
           total += qty * price;
+
+          const itemLine = document.createElement('p');
+          itemLine.textContent = `${itemName} x ${qty} = ₱${itemTotal}`;
+          receiptBody.appendChild(itemLine);
         }
       });
 
-      orderSummary += `\nTotal: ₱${total.toFixed(2)}`;
-
-      if (total > 0) {
-        alert(orderSummary);
-      } else {
+      if (!hasItems) {
         alert("Please select at least one item.");
+        return;
       }
+
+      receiptTotal.textContent = `Total: ₱${total.toFixed(2)}`;
+      receipt.style.display = 'block';
+      receipt.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function printReceipt() {
+      const original = document.body.innerHTML;
+      const receiptContent = document.getElementById('receipt').innerHTML;
+      document.body.innerHTML = `<div style="padding:2rem;">${receiptContent}</div>`;
+      window.print();
+      document.body.innerHTML = original;
+      location.reload();
+    }
+
+    function saveReceiptAsImage() {
+      const receiptElement = document.getElementById('receipt');
+      html2canvas(receiptElement).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'jollibee-receipt.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
     }
 
     function showTab(tabId) {
