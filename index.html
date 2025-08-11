@@ -1,412 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jollibee Ordering App</title>
-  <style>
-    :root {
-      --main-red: #d10000;
-      --light-red: #fff0f0;
-      --bg-color: #fff8f0;
-      --text-color: #333;
-      --rounded: 12px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Providence Memorial Park Receipt</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-    * {
-      box-sizing: border-box;
-    }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0; padding: 1rem;
+    background: #f7f7f7;
+    color: #222;
+  }
+  h1, h2, h3 {
+    margin: 0;
+  }
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    padding: 1rem 1.5rem 2rem;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  }
+  header {
+    text-align: center;
+    color: #b30000;
+    margin-bottom: 1rem;
+  }
+  header h1 {
+    font-weight: 900;
+    font-size: 1.8rem;
+    letter-spacing: 1.5px;
+  }
+  header h2 {
+    font-weight: 500;
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-top: 4px;
+    color: #a00000;
+  }
+  form {
+    margin-bottom: 1.2rem;
+  }
+  label {
+    display: block;
+    font-weight: 600;
+    margin: 12px 0 6px 0;
+  }
+  input[type=text],
+  input[type=number],
+  select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 1rem;
+    border: 1.8px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  input[type=text]:focus,
+  input[type=number]:focus,
+  select:focus {
+    border-color: #b30000;
+    outline: none;
+  }
+  .month-range {
+    display: flex;
+    gap: 10px;
+  }
+  .month-range > div {
+    flex: 1;
+  }
+  button {
+    background-color: #b30000;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #850000;
+  }
+  button.clear-btn {
+    background-color: #555;
+    margin-top: 10px;
+  }
+  button.clear-btn:hover {
+    background-color: #333;
+  }
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-    }
+  /* Receipt styling */
+  #receipt {
+    margin-top: 20px;
+    background: #fff8f0;
+    border-radius: 12px;
+    padding: 20px 30px;
+    color: #3a3a3a;
+    box-shadow: 0 5px 12px rgba(179,0,0,0.2);
+    font-size: 14px;
+    display: none;
+  }
+  #receipt h2 {
+    text-align: center;
+    color: #b30000;
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+  #receipt h3 {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+  #receipt .subheading {
+    text-align: center;
+    font-style: italic;
+    color: #8b0000;
+    margin-bottom: 20px;
+  }
+  #receipt .info p {
+    margin: 4px 0;
+  }
+  #receipt .line {
+    border-bottom: 1px solid #b3000050;
+    margin: 12px 0;
+  }
+  #receipt .field-label {
+    font-weight: 700;
+    width: 120px;
+    display: inline-block;
+    color: #8b0000;
+  }
+  #receipt .footer {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #660000;
+    text-align: center;
+    line-height: 1.3;
+  }
+  #receipt .footer strong {
+    color: #b30000;
+  }
+  #receipt .total-line {
+    margin-top: 15px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    text-align: right;
+    color: #b30000;
+  }
 
-    header {
-      background-color: var(--main-red);
-      color: white;
-      padding: 1.2rem;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  /* Responsive */
+  @media (max-width: 520px) {
+    .month-range {
+      flex-direction: column;
     }
-
-    .tabs {
-      display: flex;
-      justify-content: center;
-      margin-top: 1rem;
+    .month-range > div {
+      flex: none;
     }
-
-    .tab {
-      padding: 0.7rem 1.5rem;
-      background: white;
-      margin: 0 0.3rem;
-      border-radius: var(--rounded);
-      border: 2px solid var(--main-red);
-      color: var(--main-red);
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .tab.active {
-      background: var(--main-red);
-      color: white;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: auto;
-      padding: 1rem;
-    }
-
-    .menu {
-      display: none;
-      margin-top: 1rem;
-    }
-
-    .menu.active {
-      display: block;
-    }
-
-    .menu-item {
-      background: white;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-radius: var(--rounded);
-      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .item-info h3 {
-      margin: 0;
-    }
-
-    .item-info p {
-      margin: 0.2rem 0;
-      font-size: 0.95rem;
-      color: gray;
-    }
-
-    .item-controls {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    input[type="number"] {
-      width: 50px;
-      padding: 0.3rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      text-align: center;
-    }
-
-    .total {
-      font-size: 1.2rem;
-      text-align: right;
-      font-weight: bold;
-      margin-top: 1rem;
-    }
-
-    .order-btn {
-      background-color: var(--main-red);
-      color: white;
-      width: 100%;
-      padding: 1rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: var(--rounded);
-      margin-top: 1rem;
-      cursor: pointer;
-    }
-
-    .order-btn:hover {
-      background-color: #b30000;
-    }
-
-    /* Receipt styles */
-    #receipt {
-      background: white;
-      margin-top: 2rem;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      display: none;
-      font-family: monospace;
-      border-top: 5px solid var(--main-red);
-    }
-
-    #receipt h2 {
-      text-align: center;
-      color: var(--main-red);
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .receipt-info {
-      text-align: center;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    #receipt-body {
-      border-top: 1px dashed #ccc;
-      padding-top: 1rem;
-    }
-
-    #receipt-body p {
-      display: flex;
-      justify-content: space-between;
-      margin: 0.3rem 0;
-    }
-
-    #receipt-total {
-      font-size: 1.2rem;
-      text-align: right;
-      font-weight: bold;
-      border-top: 1px dashed #ccc;
-      padding-top: 0.5rem;
-      margin-top: 0.5rem;
-    }
-
-    .thank-you {
-      text-align: center;
-      margin-top: 1.5rem;
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    @media (max-width: 600px) {
-      .menu-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .item-controls {
-        margin-top: 0.5rem;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <header>Jollibee Ordering</header>
+<div class="container">
+  <header>
+    <h1>Providence Memorial Park</h1>
+    <h2>Monthly Grave Maintenance Service</h2>
+  </header>
 
-  <div class="tabs">
-    <div class="tab active" onclick="showTab('food')">Food</div>
-    <div class="tab" onclick="showTab('drinks')">Drinks</div>
-  </div>
+  <form id="inputForm" autocomplete="off">
+    <label for="payerName">Name of Payer</label>
+    <input type="text" id="payerName" placeholder="Enter payer's full name" required />
 
-  <div class="container">
-    <!-- Food Menu -->
-    <div class="menu active" id="food">
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Chickenjoy</h3>
-          <p>₱99.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="99">
-        </div>
+    <label for="deceasedName">Name of Deceased</label>
+    <input type="text" id="deceasedName" placeholder="Enter deceased's full name" required />
+
+    <label>Payment Period</label>
+    <div class="month-range">
+      <div>
+        <label for="monthFrom" style="font-weight:400; margin-bottom:4px;">From:</label>
+        <select id="monthFrom" required>
+          <option value="" disabled selected>Select month</option>
+          <option>January</option>
+          <option>February</option>
+          <option>March</option>
+          <option>April</option>
+          <option>May</option>
+          <option>June</option>
+          <option>July</option>
+          <option>August</option>
+          <option>September</option>
+          <option>October</option>
+          <option>November</option>
+          <option>December</option>
+        </select>
       </div>
-
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Jolly Spaghetti</h3>
-          <p>₱60.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="60">
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Yumburger</h3>
-          <p>₱45.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="45">
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Peach Mango Pie</h3>
-          <p>₱35.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="35">
-        </div>
+      <div>
+        <label for="monthTo" style="font-weight:400; margin-bottom:4px;">To:</label>
+        <select id="monthTo" required>
+          <option value="" disabled selected>Select month</option>
+          <option>January</option>
+          <option>February</option>
+          <option>March</option>
+          <option>April</option>
+          <option>May</option>
+          <option>June</option>
+          <option>July</option>
+          <option>August</option>
+          <option>September</option>
+          <option>October</option>
+          <option>November</option>
+          <option>December</option>
+        </select>
       </div>
     </div>
 
-    <!-- Drinks Menu -->
-    <div class="menu" id="drinks">
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Coke</h3>
-          <p>₱30.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="30">
-        </div>
-      </div>
+    <label for="amountPaid">Amount Paid (₱)</label>
+    <input type="number" id="amountPaid" min="0" step="0.01" placeholder="0.00" required />
 
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Sprite</h3>
-          <p>₱30.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="30">
-        </div>
-      </div>
+    <label for="balance">Balance (₱)</label>
+    <input type="number" id="balance" min="0" step="0.01" placeholder="0.00" required />
 
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Iced Tea</h3>
-          <p>₱35.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="35">
-        </div>
-      </div>
+    <button type="button" id="createReceiptBtn">Create Receipt</button>
+    <button type="button" id="clearBtn" class="clear-btn">Clear</button>
+  </form>
+
+  <div id="receipt">
+    <h2>🧾 Providence Memorial Park</h2>
+    <div class="subheading">Monthly Grave Maintenance Service</div>
+
+    <div class="info">
+      <p><span class="field-label">Date:</span> <span id="receiptDate"></span></p>
+      <p><span class="field-label">Name of Payer:</span> <span id="receiptPayer"></span></p>
+      <p><span class="field-label">Name of Deceased:</span> <span id="receiptDeceased"></span></p>
+      <p><span class="field-label">Payment Period:</span> <span id="receiptPeriod"></span></p>
+      <p><span class="field-label">Amount Paid:</span> ₱<span id="receiptPaid"></span></p>
+      <p><span class="field-label">Balance:</span> ₱<span id="receiptBalance"></span></p>
     </div>
 
-    <div class="total" id="total">Total: ₱0.00</div>
-    <button class="order-btn" onclick="placeOrder()">Place Order</button>
+    <div class="line"></div>
 
-    <!-- Receipt Section -->
-    <div id="receipt">
-      <h2>🧾 JOLLIBEE</h2>
-      <div class="receipt-info">
-        88 Bee Happy Ave, Quezon City, Philippines<br>
-        Transaction ID: <span id="transaction-id"></span><br>
-        Date: <span id="date"></span>
-      </div>
-
-      <div id="receipt-body"></div>
-      <p id="receipt-total"></p>
-
-      <!-- ✅ Print & Save Buttons -->
-      <div id="receipt-buttons" style="text-align: center; margin-top: 1rem;">
-        <button class="order-btn" style="width: auto;" onclick="printReceipt()">🖨️ Print</button>
-        <button class="order-btn" style="width: auto;" onclick="saveReceiptAsImage()">💾 Save as PNG</button>
-      </div>
-
-      <div class="thank-you">Please visit us again!<br>Thank you for choosing Jollibee!</div>
+    <div class="footer">
+      <p>For inquiries or services such as Bermuda grass planting, grave maintenance, or granite headstone installation, please contact:</p>
+      <p><strong>Caretaker Teresa Gaza</strong> – 0965 260 9362</p>
+      <p><strong>Caretaker Danilo Gaza</strong> – 0977 683 4583</p>
+      <p>Thank you for trusting Providence Memorial Park.</p>
     </div>
   </div>
+</div>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script>
-    const qtyInputs = document.querySelectorAll('input[type="number"]');
-    const totalDisplay = document.getElementById('total');
-    const tabs = document.querySelectorAll('.tab');
-    const menus = document.querySelectorAll('.menu');
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  const createBtn = document.getElementById('createReceiptBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const receipt = document.getElementById('receipt');
 
-    qtyInputs.forEach(input => {
-      input.addEventListener('input', updateTotal);
-    });
+  function getCurrentDateFormatted() {
+    const d = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return d.toLocaleDateString('en-US', options);
+  }
 
-    function updateTotal() {
-      let total = 0;
-      qtyInputs.forEach(input => {
-        const price = parseFloat(input.dataset.price);
-        const qty = parseInt(input.value) || 0;
-        total += price * qty;
-      });
-      totalDisplay.textContent = `Total: ₱${total.toFixed(2)}`;
+  function validateMonthRange(from, to) {
+    const months = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const fromIndex = months.indexOf(from);
+    const toIndex = months.indexOf(to);
+    return fromIndex >= 0 && toIndex >= 0 && fromIndex <= toIndex;
+  }
+
+  createBtn.addEventListener('click', () => {
+    // Get values
+    const payer = document.getElementById('payerName').value.trim();
+    const deceased = document.getElementById('deceasedName').value.trim();
+    const monthFrom = document.getElementById('monthFrom').value;
+    const monthTo = document.getElementById('monthTo').value;
+    const amountPaid = parseFloat(document.getElementById('amountPaid').value);
+    const balance = parseFloat(document.getElementById('balance').value);
+
+    // Validate required fields
+    if (!payer || !deceased || !monthFrom || !monthTo || isNaN(amountPaid) || isNaN(balance)) {
+      alert('Please fill out all fields correctly.');
+      return;
     }
 
-    function placeOrder() {
-      const receipt = document.getElementById('receipt');
-      const receiptBody = document.getElementById('receipt-body');
-      const receiptTotal = document.getElementById('receipt-total');
-      const transactionId = document.getElementById('transaction-id');
-      const dateEl = document.getElementById('date');
-
-      receiptBody.innerHTML = '';
-      let subtotal = 0;
-      let hasItems = false;
-
-      qtyInputs.forEach(input => {
-        const qty = parseInt(input.value) || 0;
-        const price = parseFloat(input.dataset.price);
-        const itemName = input.closest('.menu-item').querySelector('h3').textContent;
-
-        if (qty > 0) {
-          hasItems = true;
-          const itemTotal = qty * price;
-          subtotal += itemTotal;
-
-          const itemLine = document.createElement('p');
-          itemLine.innerHTML = `<span>${itemName} x${qty}</span><span>₱${itemTotal.toFixed(2)}</span>`;
-          receiptBody.appendChild(itemLine);
-        }
-      });
-
-      if (!hasItems) {
-        alert("Please select at least one item.");
-        return;
-      }
-
-      const tax = subtotal * 0.05;
-      const total = subtotal + tax;
-
-      receiptTotal.innerHTML = `
-        <div class="summary-line"><span>Subtotal:</span><span>₱${subtotal.toFixed(2)}</span></div>
-        <div class="summary-line"><span>Tax (5%):</span><span>₱${tax.toFixed(2)}</span></div>
-        <div class="summary-line" style="font-weight:bold;"><span>Total:</span><span>₱${total.toFixed(2)}</span></div>
-      `;
-
-      transactionId.textContent = Math.random().toString(36).substr(2, 8).toUpperCase();
-      dateEl.textContent = new Date().toLocaleString();
-
-      receipt.style.display = 'block';
-      receipt.scrollIntoView({ behavior: 'smooth' });
+    // Validate month range
+    if (!validateMonthRange(monthFrom, monthTo)) {
+      alert('Invalid payment period. The "From" month should not be after the "To" month.');
+      return;
     }
 
-    function printReceipt() {
-      const original = document.body.innerHTML;
-      const receiptContent = document.getElementById('receipt').innerHTML;
-      document.body.innerHTML = `<div style="padding:2rem;">${receiptContent}</div>`;
-      window.print();
-      document.body.innerHTML = original;
-      location.reload();
-    }
+    // Fill receipt
+    document.getElementById('receiptDate').textContent = getCurrentDateFormatted();
+    document.getElementById('receiptPayer').textContent = payer;
+    document.getElementById('receiptDeceased').textContent = deceased;
+    document.getElementById('receiptPeriod').textContent = monthFrom + ' to ' + monthTo;
+    document.getElementById('receiptPaid').textContent = amountPaid.toFixed(2);
+    document.getElementById('receiptBalance').textContent = balance.toFixed(2);
 
-    function saveReceiptAsImage() {
-      const receiptElement = document.getElementById('receipt');
-      html2canvas(receiptElement).then(canvas => {
+    // Show receipt
+    receipt.style.display = 'block';
+
+    // Scroll to receipt
+    receipt.scrollIntoView({ behavior: 'smooth' });
+
+    // After short delay, generate image and download
+    setTimeout(() => {
+      html2canvas(receipt, { scale: 2 }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'jollibee-receipt.png';
-        link.href = canvas.toDataURL();
+        link.download = `Providence_Memorial_Park_Receipt_${payer.replace(/\s+/g, '_')}.png`;
+        link.href = canvas.toDataURL('image/png');
         link.click();
       });
-    }
+    }, 500);
+  });
 
-    function showTab(tabId) {
-      tabs.forEach(tab => tab.classList.remove('active'));
-      menus.forEach(menu => menu.classList.remove('active'));
-
-      document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-      document.getElementById(tabId).classList.add('active');
-    }
-  </script>
+  clearBtn.addEventListener('click', () => {
+    document.getElementById('inputForm').reset();
+    receipt.style.display = 'none';
+  });
+</script>
 </body>
 </html>
