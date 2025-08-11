@@ -13,9 +13,7 @@
     background: #f7f7f7;
     color: #222;
   }
-  h1, h2, h3 {
-    margin: 0;
-  }
+  h1, h2, h3 { margin: 0; }
   .container {
     max-width: 480px;
     margin: 0 auto;
@@ -24,147 +22,63 @@
     padding: 1rem 1.5rem 2rem;
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
   }
-  header {
-    text-align: center;
-    color: #b30000;
-    margin-bottom: 1rem;
-  }
-  header h1 {
-    font-weight: 900;
-    font-size: 1.8rem;
-    letter-spacing: 1.5px;
-  }
-  header h2 {
-    font-weight: 500;
-    font-size: 1.1rem;
-    font-style: italic;
-    margin-top: 4px;
-    color: #a00000;
-  }
-  form {
-    margin-bottom: 1.2rem;
-  }
-  label {
-    display: block;
-    font-weight: 600;
-    margin: 12px 0 6px 0;
-  }
-  input[type=text],
-  input[type=number],
-  select {
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 1rem;
-    border: 1.8px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
+  header { text-align: center; color: #b30000; margin-bottom: 1rem; }
+  header h1 { font-weight: 900; font-size: 1.8rem; letter-spacing: 1.5px; }
+  header h2 { font-weight: 500; font-size: 1.1rem; font-style: italic; margin-top: 4px; color: #a00000; }
+
+  form { margin-bottom: 1.2rem; }
+  label { display: block; font-weight: 600; margin: 12px 0 6px 0; }
+  input[type=text], input[type=number], select {
+    width: 100%; padding: 8px 10px; font-size: 1rem;
+    border: 1.8px solid #ccc; border-radius: 8px; box-sizing: border-box;
     transition: border-color 0.3s ease;
   }
-  input[type=text]:focus,
-  input[type=number]:focus,
-  select:focus {
-    border-color: #b30000;
-    outline: none;
-  }
-  .month-range {
-    display: flex;
-    gap: 10px;
-  }
-  .month-range > div {
-    flex: 1;
-  }
+  input:focus, select:focus { border-color: #b30000; outline: none; }
+
+  .month-range { display: flex; gap: 10px; }
+  .month-range > div { flex: 1; }
+
   button {
-    background-color: #b30000;
-    color: white;
+    background-color: #b30000; color: white; border: none; padding: 12px;
+    border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer;
+    margin-top: 16px; width: 100%; transition: background-color 0.3s ease;
+  }
+  button:hover { background-color: #850000; }
+  button.clear-btn { background-color: #555; margin-top: 10px; }
+  button.clear-btn:hover { background-color: #333; }
+
+  /* small Add Balance button */
+  .small-btn {
+    display: inline-block;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border-radius: 8px;
+    margin-top: 8px;
+    background: #f0ad4e;
+    color: #111;
     border: none;
-    padding: 12px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 1rem;
     cursor: pointer;
-    margin-top: 16px;
-    width: 100%;
-    transition: background-color 0.3s ease;
   }
-  button:hover {
-    background-color: #850000;
-  }
-  button.clear-btn {
-    background-color: #555;
-    margin-top: 10px;
-  }
-  button.clear-btn:hover {
-    background-color: #333;
-  }
+  .small-btn[disabled] { opacity: 0.5; cursor: not-allowed; }
 
   /* Receipt styling */
   #receipt {
-    margin-top: 20px;
-    background: #fff8f0;
-    border-radius: 12px;
-    padding: 20px 30px;
-    color: #3a3a3a;
-    box-shadow: 0 5px 12px rgba(179,0,0,0.2);
-    font-size: 14px;
-    display: none;
+    margin-top: 20px; background: #fff8f0; border-radius: 12px; padding: 20px 30px;
+    color: #3a3a3a; box-shadow: 0 5px 12px rgba(179,0,0,0.2); font-size: 14px; display: none;
   }
-  #receipt h2 {
-    text-align: center;
-    color: #b30000;
-    font-weight: 900;
-    font-size: 1.5rem;
-    margin-bottom: 4px;
-  }
-  #receipt h3 {
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 4px;
-  }
-  #receipt .subheading {
-    text-align: center;
-    font-style: italic;
-    color: #8b0000;
-    margin-bottom: 20px;
-  }
-  #receipt .info p {
-    margin: 4px 0;
-  }
-  #receipt .line {
-    border-bottom: 1px solid #b3000050;
-    margin: 12px 0;
-  }
-  #receipt .field-label {
-    font-weight: 700;
-    width: 140px;
-    display: inline-block;
-    color: #8b0000;
-  }
-  #receipt .footer {
-    margin-top: 20px;
-    font-size: 13px;
-    color: #660000;
-    text-align: center;
-    line-height: 1.3;
-  }
-  #receipt .footer strong {
-    color: #b30000;
-  }
-  #receipt .total-line {
-    margin-top: 15px;
-    font-weight: 700;
-    font-size: 1.15rem;
-    text-align: right;
-    color: #b30000;
-  }
+  #receipt h2 { text-align: center; color: #b30000; font-weight: 900; font-size: 1.5rem; margin-bottom: 4px; }
+  #receipt .subheading { text-align: center; font-style: italic; color: #8b0000; margin-bottom: 20px; }
+  #receipt .info p { margin: 4px 0; }
+  #receipt .line { border-bottom: 1px solid #b3000050; margin: 12px 0; }
+  #receipt .field-label { font-weight: 700; width: 140px; display: inline-block; color: #8b0000; }
+  #receipt .footer { margin-top: 20px; font-size: 13px; color: #660000; text-align: center; line-height: 1.3; }
+  #receipt .footer strong { color: #b30000; }
+  #receipt .total-line { margin-top: 15px; font-weight: 700; font-size: 1.15rem; text-align: right; color: #b30000; }
 
   /* Responsive */
   @media (max-width: 520px) {
-    .month-range {
-      flex-direction: column;
-    }
-    .month-range > div {
-      flex: none;
-    }
+    .month-range { flex-direction: column; }
+    .month-range > div { flex: none; }
   }
 </style>
 </head>
@@ -211,8 +125,8 @@
     <label for="amountPaid">Amount Paid (₱)</label>
     <input type="number" id="amountPaid" min="0" step="0.01" placeholder="0.00" readonly />
 
-    <!-- Balance months section -->
-    <div id="balanceMonthsSection" style="display:none;">
+    <!-- Balance months section (hidden by default) -->
+    <div id="balanceMonthsSection" style="display:none; margin-top:12px;">
       <label>Balance Period</label>
       <div class="month-range">
         <div>
@@ -234,10 +148,18 @@
           </select>
         </div>
       </div>
+
+      <label for="balMonthly">Balance Monthly Amount (₱)</label>
+      <input type="number" id="balMonthly" min="0" step="0.01" placeholder="Balance monthly rate" />
     </div>
 
     <label for="balance">Balance (₱)</label>
-    <input type="number" id="balance" min="0" step="0.01" placeholder="0.00" readonly />
+    <div style="display:flex; gap:8px; align-items:center;">
+      <input type="number" id="balance" min="0" step="0.01" placeholder="0.00" value="0" />
+      <button type="button" id="addBalanceBtn" class="small-btn" disabled>Add Balance</button>
+      <!-- small hint -->
+      <span id="balanceHint" style="font-size:0.85rem;color:#666;margin-left:6px;">Enter >0 then click Add Balance</span>
+    </div>
 
     <button type="button" id="createReceiptBtn">Create Receipt</button>
     <button type="button" id="clearBtn" class="clear-btn">Clear</button>
@@ -253,7 +175,7 @@
       <p><span class="field-label">Name of Deceased:</span> <span id="receiptDeceased"></span></p>
       <p><span class="field-label">Payment Period:</span> <span id="receiptPeriod"></span></p>
       <p><span class="field-label">Amount Paid:</span> ₱<span id="receiptPaid"></span></p>
-      <p><span class="field-label">Balance:</span> ₱<span id="receiptBalance"></span></p>
+      <p id="receiptBalanceRow"><span class="field-label">Balance:</span> ₱<span id="receiptBalance"></span></p>
     </div>
 
     <div class="line"></div>
@@ -269,77 +191,179 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
+  // Elements
+  const monthlyRateEl = document.getElementById('monthlyRate');
+  const monthFromEl = document.getElementById('monthFrom');
+  const monthToEl = document.getElementById('monthTo');
+  const amountPaidEl = document.getElementById('amountPaid');
+
+  const balanceEl = document.getElementById('balance');
+  const addBalanceBtn = document.getElementById('addBalanceBtn');
+  const balanceMonthsSection = document.getElementById('balanceMonthsSection');
+  const balMonthFromEl = document.getElementById('balMonthFrom');
+  const balMonthToEl = document.getElementById('balMonthTo');
+  const balMonthlyEl = document.getElementById('balMonthly');
+
   const createBtn = document.getElementById('createReceiptBtn');
   const clearBtn = document.getElementById('clearBtn');
   const receipt = document.getElementById('receipt');
 
+  // Receipt fields
+  const receiptDateEl = document.getElementById('receiptDate');
+  const receiptPayerEl = document.getElementById('receiptPayer');
+  const receiptDeceasedEl = document.getElementById('receiptDeceased');
+  const receiptPeriodEl = document.getElementById('receiptPeriod');
+  const receiptPaidEl = document.getElementById('receiptPaid');
+  const receiptBalanceEl = document.getElementById('receiptBalance');
+  const receiptBalanceRow = document.getElementById('receiptBalanceRow');
+
+  // Utils
   function getCurrentDateFormatted() {
     const d = new Date();
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return d.toLocaleDateString('en-US', options);
   }
 
-  function monthDiff(from, to) {
+  function monthIndex(name) {
     const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    const fromIndex = months.indexOf(from);
-    const toIndex = months.indexOf(to);
-    if (fromIndex === -1 || toIndex === -1) return 0;
-    return (toIndex - fromIndex + 1);
+    return months.indexOf(name);
   }
 
+  // inclusive month count, supports wrapping to next year
+  function calcMonthsCount(fromName, toName) {
+    const fromIdx = monthIndex(fromName);
+    const toIdx = monthIndex(toName);
+    if (fromIdx === -1 || toIdx === -1) return 0;
+    if (toIdx >= fromIdx) return toIdx - fromIdx + 1;
+    // wrap around year
+    return (12 - fromIdx) + (toIdx + 1);
+  }
+
+  // Payment calculation
   function calcPaid() {
-    const monthly = parseFloat(document.getElementById('monthlyRate').value);
-    const from = document.getElementById('monthFrom').value;
-    const to = document.getElementById('monthTo').value;
+    const monthly = parseFloat(monthlyRateEl.value);
+    const from = monthFromEl.value;
+    const to = monthToEl.value;
     if (!isNaN(monthly) && from && to) {
-      document.getElementById('amountPaid').value = (monthDiff(from, to) * monthly).toFixed(2);
+      const mCount = calcMonthsCount(from, to);
+      amountPaidEl.value = (mCount * monthly).toFixed(2);
+    } else {
+      amountPaidEl.value = '';
     }
   }
 
-  function calcBalance() {
-    const monthly = parseFloat(document.getElementById('monthlyRate').value);
-    const bFrom = document.getElementById('balMonthFrom').value;
-    const bTo = document.getElementById('balMonthTo').value;
-    if (!isNaN(monthly) && bFrom && bTo) {
-      document.getElementById('balance').value = (monthDiff(bFrom, bTo) * monthly).toFixed(2);
+  // Balance calculation (when balance details are used)
+  function calcBalanceFromMonths() {
+    const balMonthly = parseFloat(balMonthlyEl.value);
+    const bFrom = balMonthFromEl.value;
+    const bTo = balMonthToEl.value;
+    if (!isNaN(balMonthly) && bFrom && bTo) {
+      const mCount = calcMonthsCount(bFrom, bTo);
+      const total = (mCount * balMonthly);
+      // write to balance input (user can still edit afterwards)
+      balanceEl.value = total.toFixed(2);
     }
   }
 
-  // Show balance month selectors if balance > 0
-  document.getElementById('balance').addEventListener('input', function() {
-    const val = parseFloat(this.value);
-    document.getElementById('balanceMonthsSection').style.display = (val > 0) ? 'block' : 'none';
+  // Enable/disable Add Balance button based on balance input value
+  function updateAddBalanceButtonState() {
+    const val = parseFloat(balanceEl.value);
+    if (!isNaN(val) && val > 0) {
+      addBalanceBtn.disabled = false;
+      document.getElementById('balanceHint').style.opacity = 1;
+    } else {
+      addBalanceBtn.disabled = true;
+      // hide details if currently visible
+      balanceMonthsSection.style.display = 'none';
+      document.getElementById('balanceHint').style.opacity = 0.7;
+    }
+  }
+
+  // When Add Balance clicked: show the months area and default balance monthly to payment monthly
+  addBalanceBtn.addEventListener('click', () => {
+    // show section
+    balanceMonthsSection.style.display = 'block';
+    // default bal monthly rate to payment monthly if empty
+    if (!balMonthlyEl.value || parseFloat(balMonthlyEl.value) === 0) {
+      const pm = parseFloat(monthlyRateEl.value);
+      if (!isNaN(pm)) balMonthlyEl.value = pm.toFixed(2);
+    }
+    // attempt to calculate if months already chosen
+    calcBalanceFromMonths();
   });
 
-  ['monthlyRate','monthFrom','monthTo'].forEach(id => {
-    document.getElementById(id).addEventListener('input', calcPaid);
+  // Event listeners for payment fields
+  monthlyRateEl.addEventListener('input', () => {
+    calcPaid();
+    // also update balMonthly's default if balance details visible and user hasn't changed it manually
+    if (balanceMonthsSection.style.display === 'block') {
+      // do not overwrite if user manually typed balMonthly (we won't detect that separately here),
+      // but it's helpful to keep default in sync when balMonthly empty
+      if (!balMonthlyEl.value || parseFloat(balMonthlyEl.value) === 0) {
+        const pm = parseFloat(monthlyRateEl.value);
+        if (!isNaN(pm)) balMonthlyEl.value = pm.toFixed(2);
+      }
+    }
+  });
+  monthFromEl.addEventListener('change', calcPaid);
+  monthToEl.addEventListener('change', calcPaid);
+
+  // Event listeners for balance input & balance months
+  balanceEl.addEventListener('input', updateAddBalanceButtonState);
+  balMonthFromEl.addEventListener('change', calcBalanceFromMonths);
+  balMonthToEl.addEventListener('change', calcBalanceFromMonths);
+  balMonthlyEl.addEventListener('input', calcBalanceFromMonths);
+
+  // Initialize payment calculation on load
+  window.addEventListener('load', () => {
+    // keep behavior similar to your earlier file: if monthlyRate has no value, set to 200 as default (optional)
+    if (!monthlyRateEl.value) monthlyRateEl.value = '';
+    calcPaid();
+    updateAddBalanceButtonState();
   });
 
-  ['balMonthFrom','balMonthTo','monthlyRate'].forEach(id => {
-    document.getElementById(id).addEventListener('input', calcBalance);
-  });
-
+  // Create receipt
   createBtn.addEventListener('click', () => {
-    const monthly = parseFloat(document.getElementById('monthlyRate').value);
+    const monthly = parseFloat(monthlyRateEl.value);
     const payer = document.getElementById('payerName').value.trim();
     const deceased = document.getElementById('deceasedName').value.trim();
-    const monthFrom = document.getElementById('monthFrom').value;
-    const monthTo = document.getElementById('monthTo').value;
-    const amountPaid = parseFloat(document.getElementById('amountPaid').value);
-    const balance = parseFloat(document.getElementById('balance').value);
+    const monthFrom = monthFromEl.value;
+    const monthTo = monthToEl.value;
+    const amountPaid = parseFloat(amountPaidEl.value) || 0;
+    const balance = parseFloat(balanceEl.value) || 0;
 
     if (!payer || !deceased || !monthFrom || !monthTo || isNaN(monthly)) {
       alert('Please fill out all required fields.');
       return;
     }
 
-    document.getElementById('receiptDate').textContent = getCurrentDateFormatted();
-    document.getElementById('receiptPayer').textContent = payer;
-    document.getElementById('receiptDeceased').textContent = deceased;
-    document.getElementById('receiptPeriod').textContent = `${monthFrom} to ${monthTo} (₱${monthly.toFixed(2)}/month)`;
-    document.getElementById('receiptPaid').textContent = amountPaid.toFixed(2);
-    document.getElementById('receiptBalance').textContent = balance.toFixed(2);
+    // Payment period string
+    let paymentPeriodStr = `${monthFrom} to ${monthTo} (₱${monthly.toFixed(2)}/month)`;
+    // If months calculation available, show months and total (already displayed in amountPaid)
+    receiptDateEl.textContent = getCurrentDateFormatted();
+    receiptPayerEl.textContent = payer;
+    receiptDeceasedEl.textContent = deceased;
+    receiptPeriodEl.textContent = paymentPeriodStr;
+    receiptPaidEl.textContent = amountPaid.toFixed(2);
 
+    // Balance in receipt: show detailed breakdown only if balance > 0 and user used details
+    if (balance > 0 && balanceMonthsSection.style.display === 'block' && balMonthFromEl.value && balMonthToEl.value && balMonthlyEl.value) {
+      const balFrom = balMonthFromEl.value;
+      const balTo = balMonthToEl.value;
+      const balMonthly = parseFloat(balMonthlyEl.value) || 0;
+      receiptBalanceEl.textContent = `${balance.toFixed(2)} (${balFrom} to ${balTo} @ ₱${balMonthly.toFixed(2)}/month)`;
+      receiptBalanceRow.style.display = '';
+    } else if (balance > 0) {
+      // show only numeric balance
+      receiptBalanceEl.textContent = balance.toFixed(2);
+      receiptBalanceRow.style.display = '';
+    } else {
+      // no balance
+      receiptBalanceEl.textContent = '0.00';
+      receiptBalanceRow.style.display = '';
+    }
+
+    // Show receipt and generate image
     receipt.style.display = 'block';
     receipt.scrollIntoView({ behavior: 'smooth' });
 
@@ -353,10 +377,14 @@
     }, 500);
   });
 
+  // Clear
   clearBtn.addEventListener('click', () => {
     document.getElementById('inputForm').reset();
     receipt.style.display = 'none';
-    document.getElementById('balanceMonthsSection').style.display = 'none';
+    balanceMonthsSection.style.display = 'none';
+    addBalanceBtn.disabled = true;
+    amountPaidEl.value = '';
+    receiptBalanceEl.textContent = '';
   });
 </script>
 </body>
