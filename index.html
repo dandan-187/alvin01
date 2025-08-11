@@ -4,17 +4,18 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Providence Memorial Park Receipt</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+<!-- Optimized font load -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
   body {
     font-family: 'Montserrat', sans-serif;
     margin: 0; padding: 1rem;
     background: #f7f7f7;
     color: #222;
-  }
-  h1, h2, h3 {
-    margin: 0;
   }
   .container {
     max-width: 480px;
@@ -29,6 +30,10 @@
     color: #b30000;
     margin-bottom: 1rem;
   }
+  header img {
+    max-width: 80px;
+    margin-bottom: 0.5rem;
+  }
   header h1 {
     font-weight: 900;
     font-size: 1.8rem;
@@ -41,17 +46,12 @@
     margin-top: 4px;
     color: #a00000;
   }
-  form {
-    margin-bottom: 1.2rem;
-  }
-  label {
+  form label {
     display: block;
     font-weight: 600;
     margin: 12px 0 6px 0;
   }
-  input[type=text],
-  input[type=number],
-  select {
+  input, select {
     width: 100%;
     padding: 8px 10px;
     font-size: 1rem;
@@ -60,9 +60,7 @@
     box-sizing: border-box;
     transition: border-color 0.3s ease;
   }
-  input[type=text]:focus,
-  input[type=number]:focus,
-  select:focus {
+  input:focus, select:focus {
     border-color: #b30000;
     outline: none;
   }
@@ -72,6 +70,11 @@
   }
   .month-range > div {
     flex: 1;
+  }
+  .error {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 2px;
   }
   button {
     background-color: #b30000;
@@ -96,11 +99,9 @@
   button.clear-btn:hover {
     background-color: #333;
   }
-
-  /* Receipt styling */
   #receipt {
     margin-top: 20px;
-    background: #fff8f0;
+    background: #fff8f0 url('https://i.ibb.co/5RSL4cL/watermark.png') center/contain no-repeat;
     border-radius: 12px;
     padding: 20px 30px;
     color: #3a3a3a;
@@ -115,23 +116,11 @@
     font-size: 1.5rem;
     margin-bottom: 4px;
   }
-  #receipt h3 {
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 4px;
-  }
   #receipt .subheading {
     text-align: center;
     font-style: italic;
     color: #8b0000;
     margin-bottom: 20px;
-  }
-  #receipt .info p {
-    margin: 4px 0;
-  }
-  #receipt .line {
-    border-bottom: 1px solid #b3000050;
-    margin: 12px 0;
   }
   #receipt .field-label {
     font-weight: 700;
@@ -146,9 +135,6 @@
     text-align: center;
     line-height: 1.3;
   }
-  #receipt .footer strong {
-    color: #b30000;
-  }
   #receipt .total-line {
     margin-top: 15px;
     font-weight: 700;
@@ -156,14 +142,9 @@
     text-align: right;
     color: #b30000;
   }
-
-  /* Responsive */
   @media (max-width: 520px) {
     .month-range {
       flex-direction: column;
-    }
-    .month-range > div {
-      flex: none;
     }
   }
 </style>
@@ -171,163 +152,145 @@
 <body>
 <div class="container">
   <header>
+    <img src="https://i.ibb.co/xjhdcCB/logo.png" alt="Providence Memorial Park Logo">
     <h1>Providence Memorial Park</h1>
     <h2>Monthly Grave Maintenance Service</h2>
   </header>
 
   <form id="inputForm" autocomplete="off">
     <label for="payerName">Name of Payer</label>
-    <input type="text" id="payerName" placeholder="Enter payer's full name" required />
+    <input type="text" id="payerName" required />
+    <div class="error" id="errorPayer"></div>
 
     <label for="deceasedName">Name of Deceased</label>
-    <input type="text" id="deceasedName" placeholder="Enter deceased's full name" required />
+    <input type="text" id="deceasedName" required />
+    <div class="error" id="errorDeceased"></div>
 
-    <label>Payment Period</label>
-    <div class="month-range">
-      <div>
-        <label for="monthFrom" style="font-weight:400; margin-bottom:4px;">From:</label>
-        <select id="monthFrom" required>
-          <option value="" disabled selected>Select month</option>
-          <option>January</option>
-          <option>February</option>
-          <option>March</option>
-          <option>April</option>
-          <option>May</option>
-          <option>June</option>
-          <option>July</option>
-          <option>August</option>
-          <option>September</option>
-          <option>October</option>
-          <option>November</option>
-          <option>December</option>
-        </select>
+    <fieldset>
+      <legend>Payment Period</legend>
+      <div class="month-range">
+        <div>
+          <label for="monthFrom">From:</label>
+          <select id="monthFrom" required></select>
+        </div>
+        <div>
+          <label for="monthTo">To:</label>
+          <select id="monthTo" required></select>
+        </div>
       </div>
-      <div>
-        <label for="monthTo" style="font-weight:400; margin-bottom:4px;">To:</label>
-        <select id="monthTo" required>
-          <option value="" disabled selected>Select month</option>
-          <option>January</option>
-          <option>February</option>
-          <option>March</option>
-          <option>April</option>
-          <option>May</option>
-          <option>June</option>
-          <option>July</option>
-          <option>August</option>
-          <option>September</option>
-          <option>October</option>
-          <option>November</option>
-          <option>December</option>
-        </select>
-      </div>
-    </div>
+    </fieldset>
+    <div class="error" id="errorPeriod"></div>
 
     <label for="amountPaid">Amount Paid (₱)</label>
-    <input type="number" id="amountPaid" min="0" step="0.01" placeholder="0.00" required />
+    <input type="number" id="amountPaid" min="0" step="0.01" required />
+    <div class="error" id="errorPaid"></div>
 
     <label for="balance">Balance (₱)</label>
-    <input type="number" id="balance" min="0" step="0.01" placeholder="0.00" required />
+    <input type="number" id="balance" min="0" step="0.01" required />
+    <div class="error" id="errorBalance"></div>
 
-    <button type="button" id="createReceiptBtn">Create Receipt</button>
+    <button type="button" id="createReceiptBtn">Create Receipt & Download</button>
+    <button type="button" id="previewReceiptBtn">Preview Only</button>
     <button type="button" id="clearBtn" class="clear-btn">Clear</button>
   </form>
 
   <div id="receipt">
     <h2>🧾 Providence Memorial Park</h2>
     <div class="subheading">Monthly Grave Maintenance Service</div>
-
-    <div class="info">
-      <p><span class="field-label">Date:</span> <span id="receiptDate"></span></p>
-      <p><span class="field-label">Name of Payer:</span> <span id="receiptPayer"></span></p>
-      <p><span class="field-label">Name of Deceased:</span> <span id="receiptDeceased"></span></p>
-      <p><span class="field-label">Payment Period:</span> <span id="receiptPeriod"></span></p>
-      <p><span class="field-label">Amount Paid:</span> ₱<span id="receiptPaid"></span></p>
-      <p><span class="field-label">Balance:</span> ₱<span id="receiptBalance"></span></p>
-    </div>
-
-    <div class="line"></div>
-
+    <p><span class="field-label">Date:</span> <span id="receiptDate"></span></p>
+    <p><span class="field-label">Name of Payer:</span> <span id="receiptPayer"></span></p>
+    <p><span class="field-label">Name of Deceased:</span> <span id="receiptDeceased"></span></p>
+    <p><span class="field-label">Payment Period:</span> <span id="receiptPeriod"></span></p>
+    <p><span class="field-label">Amount Paid:</span> ₱<span id="receiptPaid"></span></p>
+    <p><span class="field-label">Balance:</span> ₱<span id="receiptBalance"></span></p>
     <div class="footer">
-      <p>For inquiries or services such as Bermuda grass planting, grave maintenance, or granite installation and Tent rental with table and chairs, please contact:</p>
+      <p>For inquiries or services such as Bermuda grass planting, grave maintenance, granite installation, and tent rentals:</p>
       <p><strong>Caretaker Teresa Gaza</strong> – 0965 260 9362</p>
       <p><strong>Caretaker Danilo Gaza</strong> – 0977 683 4583</p>
-      <p>Thank you for trusting Providence Memorial Park.</p>
     </div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-  const createBtn = document.getElementById('createReceiptBtn');
-  const clearBtn = document.getElementById('clearBtn');
-  const receipt = document.getElementById('receipt');
+const months = [
+  "January","February","March","April","May","June",
+  "July","August","September","October","November","December"
+];
 
-  function getCurrentDateFormatted() {
-    const d = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return d.toLocaleDateString('en-US', options);
-  }
+const fromSelect = document.getElementById('monthFrom');
+const toSelect = document.getElementById('monthTo');
 
-  function validateMonthRange(from, to) {
-    const months = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
-    const fromIndex = months.indexOf(from);
-    const toIndex = months.indexOf(to);
-    return fromIndex >= 0 && toIndex >= 0 && fromIndex <= toIndex;
-  }
+// Populate month dropdowns
+months.forEach(m => {
+  const opt1 = new Option(m, m);
+  const opt2 = new Option(m, m);
+  fromSelect.add(opt1);
+  toSelect.add(opt2);
+});
 
-  createBtn.addEventListener('click', () => {
-    // Get values
-    const payer = document.getElementById('payerName').value.trim();
-    const deceased = document.getElementById('deceasedName').value.trim();
-    const monthFrom = document.getElementById('monthFrom').value;
-    const monthTo = document.getElementById('monthTo').value;
-    const amountPaid = parseFloat(document.getElementById('amountPaid').value);
-    const balance = parseFloat(document.getElementById('balance').value);
-
-    // Validate required fields
-    if (!payer || !deceased || !monthFrom || !monthTo || isNaN(amountPaid) || isNaN(balance)) {
-      alert('Please fill out all fields correctly.');
-      return;
-    }
-
-    // Validate month range
-    if (!validateMonthRange(monthFrom, monthTo)) {
-      alert('Invalid payment period. The "From" month should not be after the "To" month.');
-      return;
-    }
-
-    // Fill receipt
-    document.getElementById('receiptDate').textContent = getCurrentDateFormatted();
-    document.getElementById('receiptPayer').textContent = payer;
-    document.getElementById('receiptDeceased').textContent = deceased;
-    document.getElementById('receiptPeriod').textContent = monthFrom + ' to ' + monthTo;
-    document.getElementById('receiptPaid').textContent = amountPaid.toFixed(2);
-    document.getElementById('receiptBalance').textContent = balance.toFixed(2);
-
-    // Show receipt
-    receipt.style.display = 'block';
-
-    // Scroll to receipt
-    receipt.scrollIntoView({ behavior: 'smooth' });
-
-    // After short delay, generate image and download
-    setTimeout(() => {
-      html2canvas(receipt, { scale: 2 }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = `Providence_Memorial_Park_Receipt_${payer.replace(/\s+/g, '_')}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-      });
-    }, 500);
+// Auto-adjust "To" month options
+fromSelect.addEventListener('change', () => {
+  const startIndex = months.indexOf(fromSelect.value);
+  toSelect.innerHTML = "";
+  months.slice(startIndex).forEach(m => {
+    toSelect.add(new Option(m, m));
   });
+});
 
-  clearBtn.addEventListener('click', () => {
-    document.getElementById('inputForm').reset();
-    receipt.style.display = 'none';
-  });
+function showError(id, msg) {
+  document.getElementById(id).textContent = msg;
+}
+function clearErrors() {
+  ['errorPayer','errorDeceased','errorPeriod','errorPaid','errorBalance']
+    .forEach(id => document.getElementById(id).textContent = "");
+}
+
+function fillReceipt() {
+  document.getElementById('receiptDate').textContent = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('receiptPayer').textContent = document.getElementById('payerName').value.trim();
+  document.getElementById('receiptDeceased').textContent = document.getElementById('deceasedName').value.trim();
+  document.getElementById('receiptPeriod').textContent = fromSelect.value + ' to ' + toSelect.value;
+  document.getElementById('receiptPaid').textContent = parseFloat(document.getElementById('amountPaid').value).toFixed(2);
+  document.getElementById('receiptBalance').textContent = parseFloat(document.getElementById('balance').value).toFixed(2);
+  document.getElementById('receipt').style.display = 'block';
+  document.getElementById('receipt').scrollIntoView({behavior:'smooth'});
+}
+
+function validateForm() {
+  clearErrors();
+  let valid = true;
+  if (!document.getElementById('payerName').value.trim()) { showError('errorPayer','Required'); valid=false; }
+  if (!document.getElementById('deceasedName').value.trim()) { showError('errorDeceased','Required'); valid=false; }
+  if (!fromSelect.value || !toSelect.value) { showError('errorPeriod','Select months'); valid=false; }
+  if (isNaN(parseFloat(document.getElementById('amountPaid').value))) { showError('errorPaid','Enter amount'); valid=false; }
+  if (isNaN(parseFloat(document.getElementById('balance').value))) { showError('errorBalance','Enter balance'); valid=false; }
+  return valid;
+}
+
+document.getElementById('createReceiptBtn').addEventListener('click', () => {
+  if (!validateForm()) return;
+  fillReceipt();
+  setTimeout(() => {
+    html2canvas(document.getElementById('receipt'), { scale: 2 }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = `Providence_Memorial_Park_Receipt_${document.getElementById('payerName').value.replace(/\s+/g,'_')}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }, 500);
+});
+
+document.getElementById('previewReceiptBtn').addEventListener('click', () => {
+  if (!validateForm()) return;
+  fillReceipt();
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  document.getElementById('inputForm').reset();
+  document.getElementById('receipt').style.display = 'none';
+  clearErrors();
+});
 </script>
 </body>
 </html>
