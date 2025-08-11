@@ -4,18 +4,17 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Providence Memorial Park Receipt</title>
-
-<!-- Optimized font load -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
   body {
     font-family: 'Montserrat', sans-serif;
     margin: 0; padding: 1rem;
     background: #f7f7f7;
     color: #222;
+  }
+  h1, h2, h3 {
+    margin: 0;
   }
   .container {
     max-width: 480px;
@@ -30,10 +29,6 @@
     color: #b30000;
     margin-bottom: 1rem;
   }
-  header img {
-    max-width: 80px;
-    margin-bottom: 0.5rem;
-  }
   header h1 {
     font-weight: 900;
     font-size: 1.8rem;
@@ -46,12 +41,17 @@
     margin-top: 4px;
     color: #a00000;
   }
-  form label {
+  form {
+    margin-bottom: 1.2rem;
+  }
+  label {
     display: block;
     font-weight: 600;
     margin: 12px 0 6px 0;
   }
-  input, select {
+  input[type=text],
+  input[type=number],
+  select {
     width: 100%;
     padding: 8px 10px;
     font-size: 1rem;
@@ -60,7 +60,9 @@
     box-sizing: border-box;
     transition: border-color 0.3s ease;
   }
-  input:focus, select:focus {
+  input[type=text]:focus,
+  input[type=number]:focus,
+  select:focus {
     border-color: #b30000;
     outline: none;
   }
@@ -70,11 +72,6 @@
   }
   .month-range > div {
     flex: 1;
-  }
-  .error {
-    color: red;
-    font-size: 0.85rem;
-    margin-top: 2px;
   }
   button {
     background-color: #b30000;
@@ -99,9 +96,11 @@
   button.clear-btn:hover {
     background-color: #333;
   }
+
+  /* Receipt styling */
   #receipt {
     margin-top: 20px;
-    background: #fff8f0 url('https://i.ibb.co/5RSL4cL/watermark.png') center/contain no-repeat;
+    background: #fff8f0;
     border-radius: 12px;
     padding: 20px 30px;
     color: #3a3a3a;
@@ -116,15 +115,27 @@
     font-size: 1.5rem;
     margin-bottom: 4px;
   }
+  #receipt h3 {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
   #receipt .subheading {
     text-align: center;
     font-style: italic;
     color: #8b0000;
     margin-bottom: 20px;
   }
+  #receipt .info p {
+    margin: 4px 0;
+  }
+  #receipt .line {
+    border-bottom: 1px solid #b3000050;
+    margin: 12px 0;
+  }
   #receipt .field-label {
     font-weight: 700;
-    width: 120px;
+    width: 140px;
     display: inline-block;
     color: #8b0000;
   }
@@ -135,6 +146,9 @@
     text-align: center;
     line-height: 1.3;
   }
+  #receipt .footer strong {
+    color: #b30000;
+  }
   #receipt .total-line {
     margin-top: 15px;
     font-weight: 700;
@@ -142,9 +156,14 @@
     text-align: right;
     color: #b30000;
   }
+
+  /* Responsive */
   @media (max-width: 520px) {
     .month-range {
       flex-direction: column;
+    }
+    .month-range > div {
+      flex: none;
     }
   }
 </style>
@@ -152,145 +171,193 @@
 <body>
 <div class="container">
   <header>
-    <img src="https://i.ibb.co/xjhdcCB/logo.png" alt="Providence Memorial Park Logo">
     <h1>Providence Memorial Park</h1>
     <h2>Monthly Grave Maintenance Service</h2>
   </header>
 
   <form id="inputForm" autocomplete="off">
+
+    <label for="monthlyRate">Monthly Amount (₱)</label>
+    <input type="number" id="monthlyRate" min="0" step="0.01" placeholder="Enter monthly rate" required />
+
     <label for="payerName">Name of Payer</label>
-    <input type="text" id="payerName" required />
-    <div class="error" id="errorPayer"></div>
+    <input type="text" id="payerName" placeholder="Enter payer's full name" required />
 
     <label for="deceasedName">Name of Deceased</label>
-    <input type="text" id="deceasedName" required />
-    <div class="error" id="errorDeceased"></div>
+    <input type="text" id="deceasedName" placeholder="Enter deceased's full name" required />
 
-    <fieldset>
-      <legend>Payment Period</legend>
-      <div class="month-range">
-        <div>
-          <label for="monthFrom">From:</label>
-          <select id="monthFrom" required></select>
-        </div>
-        <div>
-          <label for="monthTo">To:</label>
-          <select id="monthTo" required></select>
-        </div>
+    <label>Payment Period</label>
+    <div class="month-range">
+      <div>
+        <label for="monthFrom" style="font-weight:400; margin-bottom:4px;">From:</label>
+        <select id="monthFrom" required>
+          <option value="" disabled selected>Select month</option>
+          <option>January</option><option>February</option><option>March</option><option>April</option>
+          <option>May</option><option>June</option><option>July</option><option>August</option>
+          <option>September</option><option>October</option><option>November</option><option>December</option>
+        </select>
       </div>
-    </fieldset>
-    <div class="error" id="errorPeriod"></div>
+      <div>
+        <label for="monthTo" style="font-weight:400; margin-bottom:4px;">To:</label>
+        <select id="monthTo" required>
+          <option value="" disabled selected>Select month</option>
+          <option>January</option><option>February</option><option>March</option><option>April</option>
+          <option>May</option><option>June</option><option>July</option><option>August</option>
+          <option>September</option><option>October</option><option>November</option><option>December</option>
+        </select>
+      </div>
+    </div>
 
     <label for="amountPaid">Amount Paid (₱)</label>
-    <input type="number" id="amountPaid" min="0" step="0.01" required />
-    <div class="error" id="errorPaid"></div>
+    <input type="number" id="amountPaid" min="0" step="0.01" placeholder="0.00" readonly />
+
+    <!-- Balance months section -->
+    <div id="balanceMonthsSection" style="display:none;">
+      <label>Balance Period</label>
+      <div class="month-range">
+        <div>
+          <label for="balMonthFrom" style="font-weight:400; margin-bottom:4px;">From:</label>
+          <select id="balMonthFrom">
+            <option value="" disabled selected>Select month</option>
+            <option>January</option><option>February</option><option>March</option><option>April</option>
+            <option>May</option><option>June</option><option>July</option><option>August</option>
+            <option>September</option><option>October</option><option>November</option><option>December</option>
+          </select>
+        </div>
+        <div>
+          <label for="balMonthTo" style="font-weight:400; margin-bottom:4px;">To:</label>
+          <select id="balMonthTo">
+            <option value="" disabled selected>Select month</option>
+            <option>January</option><option>February</option><option>March</option><option>April</option>
+            <option>May</option><option>June</option><option>July</option><option>August</option>
+            <option>September</option><option>October</option><option>November</option><option>December</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
     <label for="balance">Balance (₱)</label>
-    <input type="number" id="balance" min="0" step="0.01" required />
-    <div class="error" id="errorBalance"></div>
+    <input type="number" id="balance" min="0" step="0.01" placeholder="0.00" readonly />
 
-    <button type="button" id="createReceiptBtn">Create Receipt & Download</button>
-    <button type="button" id="previewReceiptBtn">Preview Only</button>
+    <button type="button" id="createReceiptBtn">Create Receipt</button>
     <button type="button" id="clearBtn" class="clear-btn">Clear</button>
   </form>
 
   <div id="receipt">
     <h2>🧾 Providence Memorial Park</h2>
     <div class="subheading">Monthly Grave Maintenance Service</div>
-    <p><span class="field-label">Date:</span> <span id="receiptDate"></span></p>
-    <p><span class="field-label">Name of Payer:</span> <span id="receiptPayer"></span></p>
-    <p><span class="field-label">Name of Deceased:</span> <span id="receiptDeceased"></span></p>
-    <p><span class="field-label">Payment Period:</span> <span id="receiptPeriod"></span></p>
-    <p><span class="field-label">Amount Paid:</span> ₱<span id="receiptPaid"></span></p>
-    <p><span class="field-label">Balance:</span> ₱<span id="receiptBalance"></span></p>
+
+    <div class="info">
+      <p><span class="field-label">Date:</span> <span id="receiptDate"></span></p>
+      <p><span class="field-label">Name of Payer:</span> <span id="receiptPayer"></span></p>
+      <p><span class="field-label">Name of Deceased:</span> <span id="receiptDeceased"></span></p>
+      <p><span class="field-label">Payment Period:</span> <span id="receiptPeriod"></span></p>
+      <p><span class="field-label">Amount Paid:</span> ₱<span id="receiptPaid"></span></p>
+      <p><span class="field-label">Balance:</span> ₱<span id="receiptBalance"></span></p>
+    </div>
+
+    <div class="line"></div>
+
     <div class="footer">
-      <p>For inquiries or services such as Bermuda grass planting, grave maintenance, granite installation, and tent rentals:</p>
+      <p>For inquiries or services such as Bermuda grass planting, grave maintenance, or granite installation and Tent rental with table and chairs, please contact:</p>
       <p><strong>Caretaker Teresa Gaza</strong> – 0965 260 9362</p>
       <p><strong>Caretaker Danilo Gaza</strong> – 0977 683 4583</p>
+      <p>Thank you for trusting Providence Memorial Park.</p>
     </div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-const months = [
-  "January","February","March","April","May","June",
-  "July","August","September","October","November","December"
-];
+  const createBtn = document.getElementById('createReceiptBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const receipt = document.getElementById('receipt');
 
-const fromSelect = document.getElementById('monthFrom');
-const toSelect = document.getElementById('monthTo');
+  function getCurrentDateFormatted() {
+    const d = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return d.toLocaleDateString('en-US', options);
+  }
 
-// Populate month dropdowns
-months.forEach(m => {
-  const opt1 = new Option(m, m);
-  const opt2 = new Option(m, m);
-  fromSelect.add(opt1);
-  toSelect.add(opt2);
-});
+  function monthDiff(from, to) {
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const fromIndex = months.indexOf(from);
+    const toIndex = months.indexOf(to);
+    if (fromIndex === -1 || toIndex === -1) return 0;
+    return (toIndex - fromIndex + 1);
+  }
 
-// Auto-adjust "To" month options
-fromSelect.addEventListener('change', () => {
-  const startIndex = months.indexOf(fromSelect.value);
-  toSelect.innerHTML = "";
-  months.slice(startIndex).forEach(m => {
-    toSelect.add(new Option(m, m));
+  function calcPaid() {
+    const monthly = parseFloat(document.getElementById('monthlyRate').value);
+    const from = document.getElementById('monthFrom').value;
+    const to = document.getElementById('monthTo').value;
+    if (!isNaN(monthly) && from && to) {
+      document.getElementById('amountPaid').value = (monthDiff(from, to) * monthly).toFixed(2);
+    }
+  }
+
+  function calcBalance() {
+    const monthly = parseFloat(document.getElementById('monthlyRate').value);
+    const bFrom = document.getElementById('balMonthFrom').value;
+    const bTo = document.getElementById('balMonthTo').value;
+    if (!isNaN(monthly) && bFrom && bTo) {
+      document.getElementById('balance').value = (monthDiff(bFrom, bTo) * monthly).toFixed(2);
+    }
+  }
+
+  // Show balance month selectors if balance > 0
+  document.getElementById('balance').addEventListener('input', function() {
+    const val = parseFloat(this.value);
+    document.getElementById('balanceMonthsSection').style.display = (val > 0) ? 'block' : 'none';
   });
-});
 
-function showError(id, msg) {
-  document.getElementById(id).textContent = msg;
-}
-function clearErrors() {
-  ['errorPayer','errorDeceased','errorPeriod','errorPaid','errorBalance']
-    .forEach(id => document.getElementById(id).textContent = "");
-}
+  ['monthlyRate','monthFrom','monthTo'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calcPaid);
+  });
 
-function fillReceipt() {
-  document.getElementById('receiptDate').textContent = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-  document.getElementById('receiptPayer').textContent = document.getElementById('payerName').value.trim();
-  document.getElementById('receiptDeceased').textContent = document.getElementById('deceasedName').value.trim();
-  document.getElementById('receiptPeriod').textContent = fromSelect.value + ' to ' + toSelect.value;
-  document.getElementById('receiptPaid').textContent = parseFloat(document.getElementById('amountPaid').value).toFixed(2);
-  document.getElementById('receiptBalance').textContent = parseFloat(document.getElementById('balance').value).toFixed(2);
-  document.getElementById('receipt').style.display = 'block';
-  document.getElementById('receipt').scrollIntoView({behavior:'smooth'});
-}
+  ['balMonthFrom','balMonthTo','monthlyRate'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calcBalance);
+  });
 
-function validateForm() {
-  clearErrors();
-  let valid = true;
-  if (!document.getElementById('payerName').value.trim()) { showError('errorPayer','Required'); valid=false; }
-  if (!document.getElementById('deceasedName').value.trim()) { showError('errorDeceased','Required'); valid=false; }
-  if (!fromSelect.value || !toSelect.value) { showError('errorPeriod','Select months'); valid=false; }
-  if (isNaN(parseFloat(document.getElementById('amountPaid').value))) { showError('errorPaid','Enter amount'); valid=false; }
-  if (isNaN(parseFloat(document.getElementById('balance').value))) { showError('errorBalance','Enter balance'); valid=false; }
-  return valid;
-}
+  createBtn.addEventListener('click', () => {
+    const monthly = parseFloat(document.getElementById('monthlyRate').value);
+    const payer = document.getElementById('payerName').value.trim();
+    const deceased = document.getElementById('deceasedName').value.trim();
+    const monthFrom = document.getElementById('monthFrom').value;
+    const monthTo = document.getElementById('monthTo').value;
+    const amountPaid = parseFloat(document.getElementById('amountPaid').value);
+    const balance = parseFloat(document.getElementById('balance').value);
 
-document.getElementById('createReceiptBtn').addEventListener('click', () => {
-  if (!validateForm()) return;
-  fillReceipt();
-  setTimeout(() => {
-    html2canvas(document.getElementById('receipt'), { scale: 2 }).then(canvas => {
-      const link = document.createElement('a');
-      link.download = `Providence_Memorial_Park_Receipt_${document.getElementById('payerName').value.replace(/\s+/g,'_')}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    });
-  }, 500);
-});
+    if (!payer || !deceased || !monthFrom || !monthTo || isNaN(monthly)) {
+      alert('Please fill out all required fields.');
+      return;
+    }
 
-document.getElementById('previewReceiptBtn').addEventListener('click', () => {
-  if (!validateForm()) return;
-  fillReceipt();
-});
+    document.getElementById('receiptDate').textContent = getCurrentDateFormatted();
+    document.getElementById('receiptPayer').textContent = payer;
+    document.getElementById('receiptDeceased').textContent = deceased;
+    document.getElementById('receiptPeriod').textContent = `${monthFrom} to ${monthTo} (₱${monthly.toFixed(2)}/month)`;
+    document.getElementById('receiptPaid').textContent = amountPaid.toFixed(2);
+    document.getElementById('receiptBalance').textContent = balance.toFixed(2);
 
-document.getElementById('clearBtn').addEventListener('click', () => {
-  document.getElementById('inputForm').reset();
-  document.getElementById('receipt').style.display = 'none';
-  clearErrors();
-});
+    receipt.style.display = 'block';
+    receipt.scrollIntoView({ behavior: 'smooth' });
+
+    setTimeout(() => {
+      html2canvas(receipt, { scale: 2 }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `Providence_Memorial_Park_Receipt_${payer.replace(/\s+/g, '_')}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }, 500);
+  });
+
+  clearBtn.addEventListener('click', () => {
+    document.getElementById('inputForm').reset();
+    receipt.style.display = 'none';
+    document.getElementById('balanceMonthsSection').style.display = 'none';
+  });
 </script>
 </body>
 </html>
