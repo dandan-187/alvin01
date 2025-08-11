@@ -61,6 +61,15 @@
   }
   .small-btn[disabled] { opacity: 0.5; cursor: not-allowed; }
 
+  /* Messenger button styling */
+  #messengerBtn {
+    background-color: #0084FF; /* Messenger blue */
+    margin-top: 10px;
+  }
+  #messengerBtn:hover {
+    background-color: #006fdd;
+  }
+
   /* Receipt styling */
   #receipt {
     margin-top: 20px; background: #fff8f0; border-radius: 12px; padding: 20px 30px;
@@ -158,10 +167,11 @@
       <input type="number" id="balance" min="0" step="0.01" placeholder="0.00" value="0" />
       <button type="button" id="addBalanceBtn" class="small-btn" disabled>Add Balance</button>
       <!-- small hint -->
-      <span id="balanceHint" style="font-size:0.85rem;color:#666;margin-left:6px;">Enter >0 then click Add Balance</span>
+      <span id="balanceHint" style="font-size:0.85rem;color:#666;margin-left:6px;">Enter &gt;0 then click Add Balance</span>
     </div>
 
     <button type="button" id="createReceiptBtn">Create Receipt</button>
+    <button type="button" id="messengerBtn">Open Messenger</button>
     <button type="button" id="clearBtn" class="clear-btn">Clear</button>
   </form>
 
@@ -207,6 +217,7 @@
   const createBtn = document.getElementById('createReceiptBtn');
   const clearBtn = document.getElementById('clearBtn');
   const receipt = document.getElementById('receipt');
+  const messengerBtn = document.getElementById('messengerBtn');
 
   // Receipt fields
   const receiptDateEl = document.getElementById('receiptDate');
@@ -297,8 +308,6 @@
     calcPaid();
     // also update balMonthly's default if balance details visible and user hasn't changed it manually
     if (balanceMonthsSection.style.display === 'block') {
-      // do not overwrite if user manually typed balMonthly (we won't detect that separately here),
-      // but it's helpful to keep default in sync when balMonthly empty
       if (!balMonthlyEl.value || parseFloat(balMonthlyEl.value) === 0) {
         const pm = parseFloat(monthlyRateEl.value);
         if (!isNaN(pm)) balMonthlyEl.value = pm.toFixed(2);
@@ -316,7 +325,6 @@
 
   // Initialize payment calculation on load
   window.addEventListener('load', () => {
-    // keep behavior similar to your earlier file: if monthlyRate has no value, set to 200 as default (optional)
     if (!monthlyRateEl.value) monthlyRateEl.value = '';
     calcPaid();
     updateAddBalanceButtonState();
@@ -339,52 +347,83 @@
 
     // Payment period string
     let paymentPeriodStr = `${monthFrom} to ${monthTo} (₱${monthly.toFixed(2)}/month)`;
-    // If months calculation available, show months and total (already displayed in amountPaid)
     receiptDateEl.textContent = getCurrentDateFormatted();
     receiptPayerEl.textContent = payer;
     receiptDeceasedEl.textContent = deceased;
     receiptPeriodEl.textContent = paymentPeriodStr;
     receiptPaidEl.textContent = amountPaid.toFixed(2);
 
-    // Balance in receipt: show detailed breakdown only if balance > 0 and user used details
-    if (balance > 0 && balanceMonthsSection.style.display === 'block' && balMonthFromEl.value && balMonthToEl.value && balMonthlyEl.value) {
-      const balFrom = balMonthFromEl.value;
-      const balTo = balMonthToEl.value;
-      const balMonthly = parseFloat(balMonthlyEl.value) || 0;
-      receiptBalanceEl.textContent = `${balance.toFixed(2)} (${balFrom} to ${balTo} @ ₱${balMonthly.toFixed(2)}/month)`;
-      receiptBalanceRow.style.display = '';
-    } else if (balance > 0) {
-      // show only numeric balance
+    if (balance > 0) {
       receiptBalanceEl.textContent = balance.toFixed(2);
-      receiptBalanceRow.style.display = '';
+      receiptBalanceRow.style.display = 'block';
     } else {
-      // no balance
-      receiptBalanceEl.textContent = '0.00';
-      receiptBalanceRow.style.display = '';
+      receiptBalanceRow.style.display = 'none';
     }
 
-    // Show receipt and generate image
     receipt.style.display = 'block';
-    receipt.scrollIntoView({ behavior: 'smooth' });
 
-    setTimeout(() => {
-      html2canvas(receipt, { scale: 2 }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = `Providence_Memorial_Park_Receipt_${payer.replace(/\s+/g, '_')}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-      });
-    }, 500);
+    // Scroll to receipt
+    receipt.scrollIntoView({ behavior: 'smooth' });
   });
 
-  // Clear
+  // Clear form and receipt
   clearBtn.addEventListener('click', () => {
-    document.getElementById('inputForm').reset();
-    receipt.style.display = 'none';
-    balanceMonthsSection.style.display = 'none';
-    addBalanceBtn.disabled = true;
-    amountPaidEl.value = '';
-    receiptBalanceEl.textContent = '';
+    if (confirm('Clear all input fields and receipt?')) {
+      document.getElementById('inputForm').reset();
+      amountPaidEl.value = '';
+      balanceEl.value = '0';
+      addBalanceBtn.disabled = true;
+      balanceMonthsSection.style.display = 'none';
+      receipt.style.display = 'none';
+    }
+  });
+
+  // Messenger button click: try to open Messenger app, fallback to web
+  messengerBtn.addEventListener('click', () => {
+    // Messenger URL scheme for app
+    const messengerAppUrl = 'fb-messenger://user-thread/';
+    // Replace user-thread with a generic open Messenger link for demo; you can add specific user/page id
+    // Since no user id provided, open main app scheme to open Messenger home
+    // On desktop or if fails, open web Messenger
+    const webMessengerUrl = 'https://m.me/';
+
+    // Try to open messenger app by changing window location and detect failure by timeout fallback
+    let opened = false;
+
+    function openWebMessenger() {
+      window.open(webMessengerUrl, '_blank');
+    }
+
+    // Modern approach: use setTimeout to open web after delay if app doesn't open
+    const timeout = setTimeout(() => {
+      if (!opened) {
+        openWebMessenger();
+      }
+    }, 1500);
+
+    // Try opening Messenger app
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = messengerAppUrl;
+    document.body.appendChild(iframe);
+
+    // If user is on desktop, just open web Messenger directly
+    if (navigator.userAgent.match(/(Windows|Macintosh|Linux)/i)) {
+      clearTimeout(timeout);
+      document.body.removeChild(iframe);
+      openWebMessenger();
+    } else {
+      // On mobile: if user switches to app, page visibility changes, clear timeout
+      function visibilityChange() {
+        if (document.hidden) {
+          clearTimeout(timeout);
+          opened = true;
+          document.removeEventListener('visibilitychange', visibilityChange);
+          document.body.removeChild(iframe);
+        }
+      }
+      document.addEventListener('visibilitychange', visibilityChange);
+    }
   });
 </script>
 </body>
