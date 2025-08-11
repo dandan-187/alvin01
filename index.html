@@ -293,18 +293,26 @@
     <div id="receipt">
       <h2>🧾 JOLLIBEE</h2>
       <div class="receipt-info">
-        88 Bee Happy Ave, Quezon City, PH<br>
-        Transaction #: <span id="transaction-id"></span><br>
+        88 Bee Happy Ave, Quezon City, Philippines<br>
+        Transaction ID: <span id="transaction-id"></span><br>
         Date: <span id="date"></span>
       </div>
 
       <div id="receipt-body"></div>
       <p id="receipt-total"></p>
 
+      <!-- ✅ Print & Save Buttons -->
+      <div id="receipt-buttons" style="text-align: center; margin-top: 1rem;">
+        <button class="order-btn" style="width: auto;" onclick="printReceipt()">🖨️ Print</button>
+        <button class="order-btn" style="width: auto;" onclick="saveReceiptAsImage()">💾 Save as PNG</button>
+      </div>
+
       <div class="thank-you">Please visit us again!<br>Thank you for choosing Jollibee!</div>
     </div>
   </div>
 
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
     const qtyInputs = document.querySelectorAll('input[type="number"]');
     const totalDisplay = document.getElementById('total');
@@ -371,6 +379,25 @@
 
       receipt.style.display = 'block';
       receipt.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function printReceipt() {
+      const original = document.body.innerHTML;
+      const receiptContent = document.getElementById('receipt').innerHTML;
+      document.body.innerHTML = `<div style="padding:2rem;">${receiptContent}</div>`;
+      window.print();
+      document.body.innerHTML = original;
+      location.reload();
+    }
+
+    function saveReceiptAsImage() {
+      const receiptElement = document.getElementById('receipt');
+      html2canvas(receiptElement).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'jollibee-receipt.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
     }
 
     function showTab(tabId) {
