@@ -3,361 +3,155 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jollibee Ordering App</title>
+  <title>Jollibee Receipt</title>
   <style>
-    :root {
-      --main-red: #d10000;
-      --light-red: #ffeded;
-      --text-color: #333;
-      --bg-color: #fff8f0;
-      --rounded: 12px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      background: #fff8f0;
+      color: #333;
     }
 
-    header {
-      background-color: var(--main-red);
-      color: white;
-      padding: 1.2rem;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-
-    .tabs {
-      display: flex;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-
-    .tab {
-      padding: 0.7rem 1.5rem;
-      background: white;
-      margin: 0 0.3rem;
-      border-radius: var(--rounded);
-      border: 2px solid var(--main-red);
-      color: var(--main-red);
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .tab.active {
-      background: var(--main-red);
-      color: white;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: auto;
-      padding: 1rem;
-    }
-
-    .menu {
-      display: none;
-      margin-top: 1rem;
-    }
-
-    .menu.active {
-      display: block;
-    }
-
-    .menu-item {
-      background: white;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-radius: var(--rounded);
-      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .item-info h3 {
-      margin: 0;
-    }
-
-    .item-info p {
-      margin: 0.2rem 0;
-      font-size: 0.95rem;
-      color: gray;
-    }
-
-    .item-controls {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    input[type="number"] {
-      width: 50px;
-      padding: 0.3rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      text-align: center;
-    }
-
-    .total {
-      font-size: 1.2rem;
-      text-align: right;
-      font-weight: bold;
-      margin-top: 1rem;
-    }
-
-    .order-btn {
-      background-color: var(--main-red);
-      color: white;
-      width: 100%;
-      padding: 1rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: var(--rounded);
-      margin-top: 1rem;
-      cursor: pointer;
-    }
-
-    .order-btn:hover {
-      background-color: #b30000;
-    }
-
-    /* Receipt styles */
-    #receipt {
-      background: white;
-      margin-top: 2rem;
+    .receipt-container {
+      max-width: 400px;
+      margin: 2rem auto;
       padding: 1.5rem;
+      background: #fff;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      display: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
       font-family: monospace;
     }
 
-    #receipt h2 {
+    .header {
       text-align: center;
-      color: var(--main-red);
+      color: #d10000;
+      font-weight: bold;
+      margin-bottom: 1rem;
     }
 
-    #receipt p {
-      margin: 0.5rem 0;
+    .header img {
+      width: 80px;
+      height: auto;
     }
 
-    #receipt-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
+    .store-info {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .receipt-title {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      color: #d10000;
+      letter-spacing: 1px;
+    }
+
+    .items {
+      border-top: 1px dashed #ccc;
+      padding-top: 1rem;
       margin-top: 1rem;
     }
 
-    @media (max-width: 600px) {
-      .menu-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    .item-line {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.3rem 0;
+    }
 
-      .item-controls {
-        margin-top: 0.5rem;
-      }
+    .summary {
+      border-top: 1px dashed #ccc;
+      margin-top: 1rem;
+      padding-top: 1rem;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.3rem 0;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #666;
     }
   </style>
 </head>
 <body>
-  <header>Jollibee Ordering</header>
 
-  <div class="tabs">
-    <div class="tab active" onclick="showTab('food')">Food</div>
-    <div class="tab" onclick="showTab('drinks')">Drinks</div>
-  </div>
+  <div class="receipt-container" id="receipt">
+    <div class="header">
+      <div style="font-size: 1.6rem;">🍗 JOLLIBEE</div>
+    </div>
 
-  <div class="container">
-    <!-- Food Menu -->
-    <div class="menu active" id="food">
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Chickenjoy</h3>
-          <p>₱99.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="99">
-        </div>
+    <div class="store-info">
+      Jollibee Store<br>
+      88 Bee Happy Ave, Quezon City, PH<br>
+      Tel: (02) 8888-8888
+    </div>
+
+    <div class="receipt-title">SALES RECEIPT</div>
+
+    <div class="items" id="receipt-items">
+      <!-- Items will be populated here -->
+    </div>
+
+    <div class="summary">
+      <div class="summary-line">
+        <span>Subtotal:</span>
+        <span id="subtotal">₱0.00</span>
       </div>
-
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Jolly Spaghetti</h3>
-          <p>₱60.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="60">
-        </div>
+      <div class="summary-line">
+        <span>Tax (5%):</span>
+        <span id="tax">₱0.00</span>
       </div>
-
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Yumburger</h3>
-          <p>₱45.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="45">
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Peach Mango Pie</h3>
-          <p>₱35.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="35">
-        </div>
+      <div class="summary-line" style="font-weight: bold;">
+        <span>Total:</span>
+        <span id="total">₱0.00</span>
       </div>
     </div>
 
-    <!-- Drinks Menu -->
-    <div class="menu" id="drinks">
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Coke</h3>
-          <p>₱30.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="30">
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Sprite</h3>
-          <p>₱30.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="30">
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <div class="item-info">
-          <h3>Iced Tea</h3>
-          <p>₱35.00</p>
-        </div>
-        <div class="item-controls">
-          <label>Qty:</label>
-          <input type="number" min="0" value="0" data-price="35">
-        </div>
-      </div>
-    </div>
-
-    <div class="total" id="total">Total: ₱0.00</div>
-    <button class="order-btn" onclick="placeOrder()">Place Order</button>
-
-    <!-- Receipt Section -->
-    <div id="receipt">
-      <h2>🧾 Jollibee Receipt</h2>
-      <div id="receipt-body"></div>
-      <p id="receipt-total" style="text-align:right; font-weight:bold;"></p>
-      <div id="receipt-buttons">
-        <button class="order-btn" style="width:auto;" onclick="printReceipt()">🖨️ Print</button>
-        <button class="order-btn" style="width:auto;" onclick="saveReceiptAsImage()">💾 Save as PNG</button>
-      </div>
+    <div class="footer">
+      Please visit us again!<br>
+      Thank you for choosing Jollibee!
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
-    const qtyInputs = document.querySelectorAll('input[type="number"]');
-    const totalDisplay = document.getElementById('total');
-    const tabs = document.querySelectorAll('.tab');
-    const menus = document.querySelectorAll('.menu');
+    // Simulated order data
+    const order = [
+      { name: 'Chickenjoy', qty: 2, price: 99 },
+      { name: 'Jolly Spaghetti', qty: 1, price: 60 },
+      { name: 'Coke', qty: 3, price: 30 }
+    ];
 
-    qtyInputs.forEach(input => {
-      input.addEventListener('input', updateTotal);
+    const receiptItems = document.getElementById('receipt-items');
+    const subtotalEl = document.getElementById('subtotal');
+    const taxEl = document.getElementById('tax');
+    const totalEl = document.getElementById('total');
+
+    let subtotal = 0;
+
+    order.forEach(item => {
+      const line = document.createElement('div');
+      line.classList.add('item-line');
+      const itemTotal = item.qty * item.price;
+      subtotal += itemTotal;
+      line.innerHTML = `<span>${item.name} x${item.qty}</span><span>₱${itemTotal.toFixed(2)}</span>`;
+      receiptItems.appendChild(line);
     });
 
-    function updateTotal() {
-      let total = 0;
-      qtyInputs.forEach(input => {
-        const price = parseFloat(input.dataset.price);
-        const qty = parseInt(input.value) || 0;
-        total += price * qty;
-      });
-      totalDisplay.textContent = `Total: ₱${total.toFixed(2)}`;
-    }
+    const tax = subtotal * 0.05;
+    const total = subtotal + tax;
 
-    function placeOrder() {
-      const receipt = document.getElementById('receipt');
-      const receiptBody = document.getElementById('receipt-body');
-      const receiptTotal = document.getElementById('receipt-total');
-      receiptBody.innerHTML = '';
-
-      let total = 0;
-      let hasItems = false;
-
-      qtyInputs.forEach(input => {
-        const qty = parseInt(input.value) || 0;
-        const price = parseFloat(input.dataset.price);
-        const itemName = input.closest('.menu-item').querySelector('h3').textContent;
-
-        if (qty > 0) {
-          hasItems = true;
-          const itemTotal = (qty * price).toFixed(2);
-          total += qty * price;
-
-          const itemLine = document.createElement('p');
-          itemLine.textContent = `${itemName} x ${qty} = ₱${itemTotal}`;
-          receiptBody.appendChild(itemLine);
-        }
-      });
-
-      if (!hasItems) {
-        alert("Please select at least one item.");
-        return;
-      }
-
-      receiptTotal.textContent = `Total: ₱${total.toFixed(2)}`;
-      receipt.style.display = 'block';
-      receipt.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function printReceipt() {
-      const original = document.body.innerHTML;
-      const receiptContent = document.getElementById('receipt').innerHTML;
-      document.body.innerHTML = `<div style="padding:2rem;">${receiptContent}</div>`;
-      window.print();
-      document.body.innerHTML = original;
-      location.reload();
-    }
-
-    function saveReceiptAsImage() {
-      const receiptElement = document.getElementById('receipt');
-      html2canvas(receiptElement).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'jollibee-receipt.png';
-        link.href = canvas.toDataURL();
-        link.click();
-      });
-    }
-
-    function showTab(tabId) {
-      tabs.forEach(tab => tab.classList.remove('active'));
-      menus.forEach(menu => menu.classList.remove('active'));
-
-      document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-      document.getElementById(tabId).classList.add('active');
-    }
+    subtotalEl.textContent = `₱${subtotal.toFixed(2)}`;
+    taxEl.textContent = `₱${tax.toFixed(2)}`;
+    totalEl.textContent = `₱${total.toFixed(2)}`;
   </script>
+
 </body>
 </html>
