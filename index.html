@@ -262,48 +262,6 @@
     margin-left: 6px;
   }
 
-  /* Toggle Switch Styling */
-  .theme-toggle {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 1rem;
-  }
-  .theme-toggle input[type="checkbox"] {
-    display: none;
-  }
-  .theme-toggle .switch {
-    position: relative;
-    width: 40px;
-    height: 20px;
-    background: #616161;
-    border-radius: 10px;
-    margin-left: 8px;
-    transition: background 0.3s ease;
-    opacity: 0.6; /* 40% transparent */
-  }
-  .theme-toggle .switch::before {
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    background: #ffffff;
-    border-radius: 50%;
-    top: 2px;
-    left: 2px;
-    transition: transform 0.3s ease;
-  }
-  .theme-toggle input:checked + .switch {
-    background: #00ff66; /* Neon green for checked state */
-    box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
-  }
-  .theme-toggle input:checked + .switch::before {
-    transform: translateX(20px);
-  }
-  .theme-toggle input:disabled + .switch {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-
   /* Shared Form Styling */
   h1, h2, h3 { margin: 0; }
   .container {
@@ -394,10 +352,6 @@
 </head>
 <body class="green-theme">
 <div class="container">
-  <div class="theme-toggle">
-    <input type="checkbox" id="themeSwitch">
-    <span class="switch"></span>
-  </div>
   <header>
     <h1>Providence Memorial Park</h1>
     <h2>Monthly Grave Maintenance Service</h2>
@@ -523,13 +477,33 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-  // Theme toggle
-  const themeSwitch = document.getElementById('themeSwitch');
-  themeSwitch.addEventListener('change', () => {
-    if (themeSwitch.checked) {
-      document.body.classList.remove('green-theme');
-      document.body.classList.add('neon-theme');
-      themeSwitch.disabled = true; // Disable switch to prevent going back to green
+  // Theme toggle with triple tap
+  let tapCount = 0;
+  let lastTapTime = 0;
+  const TAP_TIMEOUT = 1000; // 1 second window for triple tap
+  const interactiveElements = ['INPUT', 'SELECT', 'BUTTON', 'A'];
+
+  document.addEventListener('click', (e) => {
+    // Ignore taps on interactive elements
+    if (interactiveElements.includes(e.target.tagName)) return;
+
+    const currentTime = Date.now();
+    if (currentTime - lastTapTime > TAP_TIMEOUT) {
+      tapCount = 1; // Reset if too much time has passed
+    } else {
+      tapCount++;
+    }
+    lastTapTime = currentTime;
+
+    if (tapCount === 3) {
+      if (document.body.classList.contains('green-theme')) {
+        document.body.classList.remove('green-theme');
+        document.body.classList.add('neon-theme');
+      } else {
+        document.body.classList.remove('neon-theme');
+        document.body.classList.add('green-theme');
+      }
+      tapCount = 0; // Reset tap count
     }
   });
 
