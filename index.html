@@ -391,23 +391,42 @@
     }
   });
 
-  // Messenger button click: try to open Messenger app, fallback to web
+  // Messenger button click: open specific user chat and copy details to clipboard
   messengerBtn.addEventListener('click', () => {
-    // Messenger URL scheme for app
-    const messengerAppUrl = 'fb-messenger://user-thread/';
-    // Replace user-thread with a generic open Messenger link for demo; you can add specific user/page id
-    // Since no user id provided, open main app scheme to open Messenger home
-    // On desktop or if fails, open web Messenger
-    const webMessengerUrl = 'https://m.me/';
+    const payer = document.getElementById('payerName').value.trim();
+    const deceased = document.getElementById('deceasedName').value.trim();
+    const amountPaid = parseFloat(amountPaidEl.value) || 0;
 
-    // Try to open messenger app by changing window location and detect failure by timeout fallback
+    // Validate required fields
+    if (!payer || !deceased || !amountPaid) {
+      alert('Please fill out Name of Payer, Name of Deceased, and ensure Amount Paid is calculated.');
+      return;
+    }
+
+    // Copy formatted text to clipboard
+    const textToCopy = `${payer}\n${deceased}\npay ${amountPaid.toFixed(2)}`;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      console.log('Text copied to clipboard:', textToCopy);
+    }).catch(err => {
+      console.error('Failed to copy text:', err);
+      alert('Failed to copy text to clipboard. Please try again.');
+    });
+
+    // Messenger URL for @teresatallo.gaza
+    // Replace 'USER_ID' with the actual Facebook ID for @teresatallo.gaza
+    // You can find the ID via Facebook profile URL or tools like lookup-id.com
+    const facebookId = 'USER_ID'; // Replace with actual ID
+    const messengerAppUrl = `fb-messenger://user-thread/${facebookId}`;
+    const webMessengerUrl = `https://m.me/${facebookId}`;
+
+    // Try to open Messenger app
     let opened = false;
 
     function openWebMessenger() {
       window.open(webMessengerUrl, '_blank');
     }
 
-    // Modern approach: use setTimeout to open web after delay if app doesn't open
+    // Use setTimeout to open web Messenger as fallback if app doesn't open
     const timeout = setTimeout(() => {
       if (!opened) {
         openWebMessenger();
@@ -420,13 +439,13 @@
     iframe.src = messengerAppUrl;
     document.body.appendChild(iframe);
 
-    // If user is on desktop, just open web Messenger directly
+    // If on desktop, open web Messenger directly
     if (navigator.userAgent.match(/(Windows|Macintosh|Linux)/i)) {
       clearTimeout(timeout);
       document.body.removeChild(iframe);
       openWebMessenger();
     } else {
-      // On mobile: if user switches to app, page visibility changes, clear timeout
+      // On mobile: detect if app opened by checking page visibility
       function visibilityChange() {
         if (document.hidden) {
           clearTimeout(timeout);
