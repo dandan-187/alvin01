@@ -7,85 +7,195 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
 
+  /* Default body styling (overridden by theme classes) */
   body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 1.5rem;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2e2e2e 100%); /* Dark gradient for neon contrast */
-    color: #e0e0e0;
+    transition: background 0.3s ease;
   }
-  h1, h2, h3 { margin: 0; }
-  .container {
-    max-width: 480px;
-    margin: 0 auto;
-    background: #121212; /* Dark background for neon pop */
+
+  /* Green Park Theme */
+  body.green-theme {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    color: #1a3c34;
+  }
+  body.green-theme .container {
+    background: #ffffff;
     border-radius: 16px;
     padding: 2rem;
-    box-shadow: 0 0 15px rgba(0, 255, 102, 0.5); /* Neon green glow */
-    border: 1px solid #00ff66; /* Subtle neon green border */
+    box-shadow: 0 8px 20px rgba(0, 50, 0, 0.15);
+    border: 1px solid #a5d6a7;
   }
-  header {
-    text-align: center;
-    color: #00ff66; /* Bright neon green */
-    margin-bottom: 1.5rem;
-    text-shadow: 0 0 10px rgba(0, 255, 102, 0.7); /* Neon glow effect */
+  body.green-theme header {
+    color: #2e7d32;
   }
-  header h1 {
+  body.green-theme header h1 {
     font-weight: 800;
     font-size: 2rem;
-    letter-spacing: 2px;
+    letter-spacing: 1.8px;
+    text-shadow: 0 2px 4px rgba(0, 50, 0, 0.1);
   }
-  header h2 {
+  body.green-theme header h2 {
     font-weight: 600;
     font-size: 1.2rem;
     font-style: italic;
     margin-top: 6px;
-    color: #00e5ff; /* Neon cyan for contrast */
-    text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+    color: #4caf50;
   }
-
-  form {
+  body.green-theme form {
     margin-bottom: 1.5rem;
-    background: #1e1e1e; /* Slightly lighter dark for form */
+    background: #f1f8e9;
     padding: 1.5rem;
     border-radius: 12px;
-    box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.3); /* Subtle neon glow inside */
+    box-shadow: inset 0 2px 5px rgba(0, 50, 0, 0.05);
   }
-  label {
-    display: block;
+  body.green-theme label {
     font-weight: 600;
     margin: 12px 0 8px 0;
-    color: #e0e0e0; /* Light gray for readability */
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    color: #1a3c34;
   }
-  input[type=text], input[type=number], select {
+  body.green-theme input[type=text],
+  body.green-theme input[type=number],
+  body.green-theme select {
     width: 100%;
     padding: 10px 12px;
     font-size: 1rem;
-    border: 2px solid #00ff66; /* Neon green border */
+    border: 2px solid #81c784;
     border-radius: 10px;
     box-sizing: border-box;
-    background: #2a2a2a; /* Dark input background */
-    color: #e0e0e0;
-    box-shadow: 0 0 10px rgba(0, 255, 102, 0.5); /* Neon glow */
+    background: #ffffff;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  input:focus, select:focus {
-    border-color: #00e5ff; /* Neon cyan on focus */
-    box-shadow: 0 0 15px rgba(0, 229, 255, 0.7); /* Brighter neon glow */
+  body.green-theme input:focus,
+  body.green-theme select:focus {
+    border-color: #2e7d32;
+    box-shadow: 0 0 8px rgba(46, 125, 50, 0.3);
     outline: none;
   }
-
-  .month-range {
-    display: flex;
-    gap: 12px;
+  body.green-theme button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 18px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
   }
-  .month-range > div {
-    flex: 1;
+  body.green-theme button:hover {
+    background-color: #388e3c;
+    transform: translateY(-2px);
+  }
+  body.green-theme button.clear-btn {
+    background-color: #616161;
+    margin-top: 12px;
+  }
+  body.green-theme button.clear-btn:hover {
+    background-color: #424242;
+    transform: translateY(-2px);
+  }
+  body.green-theme .small-btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    margin-top: 10px;
+    background: #ffca28;
+    color: #1a3c34;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  body.green-theme .small-btn:hover {
+    background: #ffb300;
+    transform: translateY(-2px);
+  }
+  body.green-theme .small-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  body.green-theme #messengerBtn {
+    background-color: #0084FF;
+    margin-top: 12px;
+  }
+  body.green-theme #messengerBtn:hover {
+    background-color: #006fdd;
+    transform: translateY(-2px);
+  }
+  body.green-theme #balanceHint {
+    font-size: 0.85rem;
+    color: #1a3c34;
+    margin-left: 6px;
   }
 
-  button {
-    background-color: #00ff66; /* Neon green for buttons */
+  /* Neon Theme */
+  body.neon-theme {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2e2e2e 100%);
+    color: #e0e0e0;
+  }
+  body.neon-theme .container {
+    background: #121212;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+    border: 1px solid #00ff66;
+  }
+  body.neon-theme header {
+    color: #00ff66;
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.7);
+  }
+  body.neon-theme header h1 {
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+  body.neon-theme header h2 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-top: 6px;
+    color: #00e5ff;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+  }
+  body.neon-theme form {
+    margin-bottom: 1.5rem;
+    background: #1e1e1e;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.3);
+  }
+  body.neon-theme label {
+    font-weight: 600;
+    margin: 12px 0 8px 0;
+    color: #e0e0e0;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+  body.neon-theme input[type=text],
+  body.neon-theme input[type=number],
+  body.neon-theme select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 2px solid #00ff66;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: #2a2a2a;
+    color: #e0e0e0;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  body.neon-theme input:focus,
+  body.neon-theme select:focus {
+    border-color: #00e5ff;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.7);
+    outline: none;
+  }
+  body.neon-theme button {
+    background-color: #00ff66;
     color: #121212;
     border: none;
     padding: 14px;
@@ -95,61 +205,124 @@
     cursor: pointer;
     margin-top: 18px;
     width: 100%;
-    box-shadow: 0 0 12px rgba(0, 255, 102, 0.6); /* Neon glow */
+    box-shadow: 0 0 12px rgba(0, 255, 102, 0.6);
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   }
-  button:hover {
-    background-color: #00cc52; /* Slightly darker neon green */
+  body.neon-theme button:hover {
+    background-color: #00cc52;
     box-shadow: 0 0 20px rgba(0, 255, 102, 0.8);
     transform: translateY(-2px);
   }
-  button.clear-btn {
-    background-color: #ff4081; /* Neon pink for clear button */
+  body.neon-theme button.clear-btn {
+    background-color: #ff4081;
     margin-top: 12px;
     box-shadow: 0 0 12px rgba(255, 64, 129, 0.6);
   }
-  button.clear-btn:hover {
+  body.neon-theme button.clear-btn:hover {
     background-color: #d81b60;
     box-shadow: 0 0 20px rgba(255, 64, 129, 0.8);
     transform: translateY(-2px);
   }
-
-  /* small Add Balance button */
-  .small-btn {
-    display: inline-block;
+  body.neon-theme .small-btn {
     padding: 8px 12px;
     font-size: 0.9rem;
     border-radius: 10px;
     margin-top: 10px;
-    background: #ffeb3b; /* Neon yellow for contrast */
+    background: #ffeb3b;
     color: #121212;
     border: none;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(255, 235, 59, 0.6);
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   }
-  .small-btn:hover {
+  body.neon-theme .small-btn:hover {
     background: #fbc02d;
     box-shadow: 0 0 15px rgba(255, 235, 59, 0.8);
     transform: translateY(-2px);
   }
-  .small-btn[disabled] {
+  body.neon-theme .small-btn[disabled] {
     opacity: 0.5;
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
   }
-
-  /* Messenger button styling */
-  #messengerBtn {
-    background-color: #0084FF; /* Keep Messenger blue */
+  body.neon-theme #messengerBtn {
+    background-color: #0084FF;
     margin-top: 12px;
     box-shadow: 0 0 12px rgba(0, 132, 255, 0.6);
   }
-  #messengerBtn:hover {
+  body.neon-theme #messengerBtn:hover {
     background-color: #006fdd;
     box-shadow: 0 0 20px rgba(0, 132, 255, 0.8);
     transform: translateY(-2px);
+  }
+  body.neon-theme #balanceHint {
+    font-size: 0.85rem;
+    color: #e0e0e0;
+    margin-left: 6px;
+  }
+
+  /* Toggle Switch Styling */
+  .theme-toggle {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
+  .theme-toggle label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+  .theme-toggle input[type="checkbox"] {
+    display: none;
+  }
+  .theme-toggle .switch {
+    position: relative;
+    width: 50px;
+    height: 24px;
+    background: #616161;
+    border-radius: 12px;
+    margin-left: 8px;
+    transition: background 0.3s ease;
+  }
+  .theme-toggle .switch::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s ease;
+  }
+  .theme-toggle input:checked + .switch {
+    background: #00ff66; /* Neon green for checked state */
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+  }
+  .theme-toggle input:checked + .switch::before {
+    transform: translateX(26px);
+  }
+
+  /* Shared Form Styling */
+  h1, h2, h3 { margin: 0; }
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .month-range {
+    display: flex;
+    gap: 12px;
+  }
+  .month-range > div {
+    flex: 1;
   }
 
   /* Receipt styling (unchanged) */
@@ -222,8 +395,15 @@
   }
 </style>
 </head>
-<body>
+<body class="green-theme">
 <div class="container">
+  <div class="theme-toggle">
+    <label>
+      Theme: Park
+      <input type="checkbox" id="themeSwitch">
+      <span class="switch"></span>
+    </label>
+  </div>
   <header>
     <h1>Providence Memorial Park</h1>
     <h2>Monthly Grave Maintenance Service</h2>
@@ -297,7 +477,7 @@
       <input type="number" id="balance" min="0" step="0.01" placeholder="0.00" value="0" />
       <button type="button" id="addBalanceBtn" class="small-btn" disabled>Add Balance</button>
       <!-- small hint -->
-      <span id="balanceHint" style="font-size:0.85rem;color:#e0e0e0;margin-left:6px;">Enter &gt;0 then click Add Balance</span>
+      <span id="balanceHint">Enter &gt;0 then click Add Balance</span>
     </div>
 
     <button type="button" id="createReceiptBtn">Create Receipt</button>
@@ -349,6 +529,21 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
+  // Theme toggle
+  const themeSwitch = document.getElementById('themeSwitch');
+  const themeLabel = document.querySelector('.theme-toggle label');
+  themeSwitch.addEventListener('change', () => {
+    if (themeSwitch.checked) {
+      document.body.classList.remove('green-theme');
+      document.body.classList.add('neon-theme');
+      themeLabel.textContent = 'Theme: Neon';
+    } else {
+      document.body.classList.remove('neon-theme');
+      document.body.classList.add('green-theme');
+      themeLabel.textContent = 'Theme: Park';
+    }
+  });
+
   // Elements
   const monthlyRateEl = document.getElementById('monthlyRate');
   const monthFromEl = document.getElementById('monthFrom');
