@@ -391,7 +391,7 @@
     }
   });
 
-  // Messenger button click: open specific user chat and copy details to clipboard
+  // Messenger button click: open @teresatallo.gaza chat and copy details to clipboard
   messengerBtn.addEventListener('click', () => {
     const payer = document.getElementById('payerName').value.trim();
     const deceased = document.getElementById('deceasedName').value.trim();
@@ -412,50 +412,9 @@
       alert('Failed to copy text to clipboard. Please try again.');
     });
 
-    // Messenger URL for @teresatallo.gaza
-    // Replace 'USER_ID' with the actual Facebook ID for @teresatallo.gaza
-    // You can find the ID via Facebook profile URL or tools like lookup-id.com
-    const facebookId = 'USER_ID'; // Replace with actual ID
-    const messengerAppUrl = `fb-messenger://user-thread/${facebookId}`;
-    const webMessengerUrl = `https://m.me/${facebookId}`;
-
-    // Try to open Messenger app
-    let opened = false;
-
-    function openWebMessenger() {
-      window.open(webMessengerUrl, '_blank');
-    }
-
-    // Use setTimeout to open web Messenger as fallback if app doesn't open
-    const timeout = setTimeout(() => {
-      if (!opened) {
-        openWebMessenger();
-      }
-    }, 1500);
-
-    // Try opening Messenger app
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = messengerAppUrl;
-    document.body.appendChild(iframe);
-
-    // If on desktop, open web Messenger directly
-    if (navigator.userAgent.match(/(Windows|Macintosh|Linux)/i)) {
-      clearTimeout(timeout);
-      document.body.removeChild(iframe);
-      openWebMessenger();
-    } else {
-      // On mobile: detect if app opened by checking page visibility
-      function visibilityChange() {
-        if (document.hidden) {
-          clearTimeout(timeout);
-          opened = true;
-          document.removeEventListener('visibilitychange', visibilityChange);
-          document.body.removeChild(iframe);
-        }
-      }
-      document.addEventListener('visibilitychange', visibilityChange);
-    }
+    // Open Messenger chat with @teresatallo.gaza
+    const messengerUrl = 'https://m.me/@teresatallo.gaza';
+    window.location.href = messengerUrl; // Use location.href to attempt opening the app
   });
 </script>
 </body>
