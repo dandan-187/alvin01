@@ -364,6 +364,19 @@
 
     // Scroll to receipt
     receipt.scrollIntoView({ behavior: 'smooth' });
+
+    // Automatically save receipt as PNG and trigger download
+    html2canvas(receipt, { scale: 2 }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = 'providence_receipt.png';
+      link.href = canvas.toDataURL('image/png');
+      document.body.appendChild(link); // Append to body for browser compatibility
+      link.click();
+      document.body.removeChild(link); // Clean up
+    }).catch(error => {
+      console.error('Error generating receipt PNG:', error);
+      alert('Failed to generate receipt PNG. Please try again.');
+    });
   });
 
   // Clear form and receipt
