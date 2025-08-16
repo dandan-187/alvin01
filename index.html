@@ -268,31 +268,24 @@
     justify-content: flex-end;
     margin-bottom: 1rem;
   }
-  .theme-toggle label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: #e0e0e0;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-  }
   .theme-toggle input[type="checkbox"] {
     display: none;
   }
   .theme-toggle .switch {
     position: relative;
-    width: 50px;
-    height: 24px;
+    width: 40px;
+    height: 20px;
     background: #616161;
-    border-radius: 12px;
+    border-radius: 10px;
     margin-left: 8px;
     transition: background 0.3s ease;
+    opacity: 0.6; /* 40% transparent */
   }
   .theme-toggle .switch::before {
     content: '';
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     background: #ffffff;
     border-radius: 50%;
     top: 2px;
@@ -304,7 +297,11 @@
     box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
   }
   .theme-toggle input:checked + .switch::before {
-    transform: translateX(26px);
+    transform: translateX(20px);
+  }
+  .theme-toggle input:disabled + .switch {
+    opacity: 0.3;
+    cursor: not-allowed;
   }
 
   /* Shared Form Styling */
@@ -398,11 +395,8 @@
 <body class="green-theme">
 <div class="container">
   <div class="theme-toggle">
-    <label>
-      Theme: Park
-      <input type="checkbox" id="themeSwitch">
-      <span class="switch"></span>
-    </label>
+    <input type="checkbox" id="themeSwitch">
+    <span class="switch"></span>
   </div>
   <header>
     <h1>Providence Memorial Park</h1>
@@ -531,16 +525,11 @@
 <script>
   // Theme toggle
   const themeSwitch = document.getElementById('themeSwitch');
-  const themeLabel = document.querySelector('.theme-toggle label');
   themeSwitch.addEventListener('change', () => {
     if (themeSwitch.checked) {
       document.body.classList.remove('green-theme');
       document.body.classList.add('neon-theme');
-      themeLabel.textContent = 'Theme: Neon';
-    } else {
-      document.body.classList.remove('neon-theme');
-      document.body.classList.add('green-theme');
-      themeLabel.textContent = 'Theme: Park';
+      themeSwitch.disabled = true; // Disable switch to prevent going back to green
     }
   });
 
