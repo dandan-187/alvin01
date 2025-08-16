@@ -5,90 +5,220 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Providence Memorial Park Receipt</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
 
   body {
     font-family: 'Montserrat', sans-serif;
-    margin: 0; padding: 1rem;
-    background: #f7f7f7;
-    color: #222;
+    margin: 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2e2e2e 100%); /* Dark gradient for neon contrast */
+    color: #e0e0e0;
   }
   h1, h2, h3 { margin: 0; }
   .container {
     max-width: 480px;
     margin: 0 auto;
-    background: white;
+    background: #121212; /* Dark background for neon pop */
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.5); /* Neon green glow */
+    border: 1px solid #00ff66; /* Subtle neon green border */
+  }
+  header {
+    text-align: center;
+    color: #00ff66; /* Bright neon green */
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.7); /* Neon glow effect */
+  }
+  header h1 {
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+  header h2 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-top: 6px;
+    color: #00e5ff; /* Neon cyan for contrast */
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+  }
+
+  form {
+    margin-bottom: 1.5rem;
+    background: #1e1e1e; /* Slightly lighter dark for form */
+    padding: 1.5rem;
     border-radius: 12px;
-    padding: 1rem 1.5rem 2rem;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.3); /* Subtle neon glow inside */
   }
-  header { text-align: center; color: #b30000; margin-bottom: 1rem; }
-  header h1 { font-weight: 900; font-size: 1.8rem; letter-spacing: 1.5px; }
-  header h2 { font-weight: 500; font-size: 1.1rem; font-style: italic; margin-top: 4px; color: #a00000; }
-
-  form { margin-bottom: 1.2rem; }
-  label { display: block; font-weight: 600; margin: 12px 0 6px 0; }
+  label {
+    display: block;
+    font-weight: 600;
+    margin: 12px 0 8px 0;
+    color: #e0e0e0; /* Light gray for readability */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
   input[type=text], input[type=number], select {
-    width: 100%; padding: 8px 10px; font-size: 1rem;
-    border: 1.8px solid #ccc; border-radius: 8px; box-sizing: border-box;
-    transition: border-color 0.3s ease;
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 2px solid #00ff66; /* Neon green border */
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: #2a2a2a; /* Dark input background */
+    color: #e0e0e0;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.5); /* Neon glow */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  input:focus, select:focus { border-color: #b30000; outline: none; }
+  input:focus, select:focus {
+    border-color: #00e5ff; /* Neon cyan on focus */
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.7); /* Brighter neon glow */
+    outline: none;
+  }
 
-  .month-range { display: flex; gap: 10px; }
-  .month-range > div { flex: 1; }
+  .month-range {
+    display: flex;
+    gap: 12px;
+  }
+  .month-range > div {
+    flex: 1;
+  }
 
   button {
-    background-color: #b30000; color: white; border: none; padding: 12px;
-    border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer;
-    margin-top: 16px; width: 100%; transition: background-color 0.3s ease;
+    background-color: #00ff66; /* Neon green for buttons */
+    color: #121212;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 18px;
+    width: 100%;
+    box-shadow: 0 0 12px rgba(0, 255, 102, 0.6); /* Neon glow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   }
-  button:hover { background-color: #850000; }
-  button.clear-btn { background-color: #555; margin-top: 10px; }
-  button.clear-btn:hover { background-color: #333; }
+  button:hover {
+    background-color: #00cc52; /* Slightly darker neon green */
+    box-shadow: 0 0 20px rgba(0, 255, 102, 0.8);
+    transform: translateY(-2px);
+  }
+  button.clear-btn {
+    background-color: #ff4081; /* Neon pink for clear button */
+    margin-top: 12px;
+    box-shadow: 0 0 12px rgba(255, 64, 129, 0.6);
+  }
+  button.clear-btn:hover {
+    background-color: #d81b60;
+    box-shadow: 0 0 20px rgba(255, 64, 129, 0.8);
+    transform: translateY(-2px);
+  }
 
   /* small Add Balance button */
   .small-btn {
     display: inline-block;
-    padding: 6px 10px;
-    font-size: 0.85rem;
-    border-radius: 8px;
-    margin-top: 8px;
-    background: #f0ad4e;
-    color: #111;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    margin-top: 10px;
+    background: #ffeb3b; /* Neon yellow for contrast */
+    color: #121212;
     border: none;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 235, 59, 0.6);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   }
-  .small-btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+  .small-btn:hover {
+    background: #fbc02d;
+    box-shadow: 0 0 15px rgba(255, 235, 59, 0.8);
+    transform: translateY(-2px);
+  }
+  .small-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
 
   /* Messenger button styling */
   #messengerBtn {
-    background-color: #0084FF; /* Messenger blue */
-    margin-top: 10px;
+    background-color: #0084FF; /* Keep Messenger blue */
+    margin-top: 12px;
+    box-shadow: 0 0 12px rgba(0, 132, 255, 0.6);
   }
   #messengerBtn:hover {
     background-color: #006fdd;
+    box-shadow: 0 0 20px rgba(0, 132, 255, 0.8);
+    transform: translateY(-2px);
   }
 
-  /* Receipt styling */
+  /* Receipt styling (unchanged) */
   #receipt {
-    margin-top: 20px; background: #fff8f0; border-radius: 12px; padding: 20px 30px;
-    color: #3a3a3a; box-shadow: 0 5px 12px rgba(179,0,0,0.2); font-size: 14px; display: none;
+    margin-top: 20px;
+    background: #fff8f0;
+    border-radius: 12px;
+    padding: 20px 30px;
+    color: #3a3a3a;
+    box-shadow: 0 5px 12px rgba(179,0,0,0.2);
+    font-size: 14px;
+    display: none;
   }
-  #receipt h2 { text-align: center; color: #b30000; font-weight: 900; font-size: 1.5rem; margin-bottom: 4px; }
-  #receipt .subheading { text-align: center; font-style: italic; color: #8b0000; margin-bottom: 20px; }
-  #receipt .info-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
-  #receipt .info-table td { padding: 6px 8px; vertical-align: top; }
-  #receipt .info-table td.label { font-weight: 700; color: #8b0000; width: 40%; }
-  #receipt .info-table td.value { color: #3a3a3a; }
-  #receipt .line { border-bottom: 1px solid #b3000050; margin: 12px 0; }
-  #receipt .footer { margin-top: 20px; font-size: 13px; color: #660000; text-align: center; line-height: 1.3; }
-  #receipt .footer strong { color: #b30000; }
+  #receipt h2 {
+    text-align: center;
+    color: #b30000;
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+  #receipt .subheading {
+    text-align: center;
+    font-style: italic;
+    color: #8b0000;
+    margin-bottom: 20px;
+  }
+  #receipt .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+  }
+  #receipt .info-table td {
+    padding: 6px 8px;
+    vertical-align: top;
+  }
+  #receipt .info-table td.label {
+    font-weight: 700;
+    color: #8b0000;
+    width: 40%;
+  }
+  #receipt .info-table td.value {
+    color: #3a3a3a;
+  }
+  #receipt .line {
+    border-bottom: 1px solid #b3000050;
+    margin: 12px 0;
+  }
+  #receipt .footer {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #660000;
+    text-align: center;
+    line-height: 1.3;
+  }
+  #receipt .footer strong {
+    color: #b30000;
+  }
 
   /* Responsive */
   @media (max-width: 520px) {
-    .month-range { flex-direction: column; }
-    .month-range > div { flex: none; }
+    .month-range {
+      flex-direction: column;
+    }
+    .month-range > div {
+      flex: none;
+    }
+    .container {
+      padding: 1.5rem;
+    }
   }
 </style>
 </head>
@@ -100,7 +230,6 @@
   </header>
 
   <form id="inputForm" autocomplete="off">
-
     <label for="monthlyRate">Monthly Amount (₱)</label>
     <input type="number" id="monthlyRate" min="0" step="0.01" placeholder="Enter monthly rate" required />
 
@@ -168,7 +297,7 @@
       <input type="number" id="balance" min="0" step="0.01" placeholder="0.00" value="0" />
       <button type="button" id="addBalanceBtn" class="small-btn" disabled>Add Balance</button>
       <!-- small hint -->
-      <span id="balanceHint" style="font-size:0.85rem;color:#666;margin-left:6px;">Enter &gt;0 then click Add Balance</span>
+      <span id="balanceHint" style="font-size:0.85rem;color:#e0e0e0;margin-left:6px;">Enter &gt;0 then click Add Balance</span>
     </div>
 
     <button type="button" id="createReceiptBtn">Create Receipt</button>
