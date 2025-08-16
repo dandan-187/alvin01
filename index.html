@@ -193,7 +193,8 @@
     <div class="footer">
       <p>For inquiries or services such as Bermuda grass planting, grave maintenance, or granite installation and Tent rental with table and chairs, please contact:</p>
       <p><strong>Caretaker Teresa Gaza</strong> – 0965 260 9362</p>
-      <p><strong>Caretaker Danilo Gaza</strong> – 0977 683 4583</p>
+      <p><strong>Caretaker Danilo Gaza</strong> – 0910 350 8806</p>
+</p>
       <p>Thank you for trusting Providence Memorial Park.</p>
     </div>
   </div>
@@ -413,8 +414,13 @@
     });
 
     // Open Messenger chat with @teresatallo.gaza
-    const messengerUrl = 'https://m.me/@teresatallo.gaza';
-    window.location.href = messengerUrl; // Use location.href to attempt opening the app
+    const messengerUrl = 'https://m.me/teresatallo.gaza'; // Removed @ to match SMS behavior
+    const link = document.createElement('a');
+    link.href = messengerUrl;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link); // Clean up
   });
 </script>
 </body>
