@@ -68,6 +68,10 @@
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     position: relative;
     z-index: 1;
+    appearance: none; /* Hides autofill UI */
+    text-security: none; /* Prevents autofill styling */
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: none; /* For Firefox */
   }
   body.green-theme input:focus,
   body.green-theme select:focus {
@@ -200,6 +204,10 @@
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     position: relative;
     z-index: 1;
+    appearance: none; /* Hides autofill UI */
+    text-security: none; /* Prevents autofill styling */
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: none; /* For Firefox */
   }
   body.neon-theme input:focus,
   body.neon-theme select:focus {
