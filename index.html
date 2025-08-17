@@ -753,7 +753,7 @@
     }
   });
 
-  // Messenger button click: open chat and copy details to clipboard
+  // Messenger button click: open group chat and copy details to clipboard
   messengerBtn.addEventListener('click', () => {
     const payer = document.getElementById('payerName').value.trim();
     const deceased = document.getElementById('deceasedName').value.trim();
@@ -774,8 +774,8 @@
       alert('Failed to copy text to clipboard. Please try again.');
     });
 
-    // Open Messenger chat
-    const messengerUrl = 'https://www.facebook.com/messages/t/1870212966857494';
+    // Open Messenger group chat
+    const messengerUrl = 'https://m.me/join/AbCdEf1234567890'; // REPLACE with actual group invite link
     const link = document.createElement('a');
     link.href = messengerUrl;
     link.target = '_blank';
