@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Providence Memorial Park Receipt</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;0;800&display=swap');
 
   /* Default body styling (overridden by theme classes) */
   body {
@@ -477,6 +477,18 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
+  // Fullscreen function for mobile devices
+  function goFullscreen() {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(err => console.log('Fullscreen error:', err));
+      }
+    }
+  }
+
+  // Trigger fullscreen on page load
+  window.addEventListener('load', goFullscreen);
+
   // Theme toggle with triple tap
   let tapCount = 0;
   let lastTapTime = 0;
