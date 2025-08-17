@@ -428,7 +428,6 @@
       <span id="balanceHint">Enter &gt;0 then click Add Balance</span>
     </div>
 
-    <button type="button" id="fullscreenBtn" class="small-btn">Go Fullscreen</button>
     <button type="button" id="createReceiptBtn">Create Receipt</button>
     <button type="button" id="messengerBtn">Open Messenger</button>
     <button type="button" id="clearBtn" class="clear-btn">Clear</button>
@@ -487,8 +486,19 @@
     }
   }
 
-  // Attach fullscreen to button
-  document.getElementById('fullscreenBtn').addEventListener('click', goFullscreen);
+  // Try fullscreen after a short delay on load
+  window.addEventListener('load', () => {
+    setTimeout(goFullscreen, 100); // 100ms delay to try bypassing Chrome restrictions
+  });
+
+  // Fallback: Trigger fullscreen on first user interaction
+  let hasGoneFullscreen = false;
+  document.addEventListener('touchstart', () => {
+    if (!hasGoneFullscreen) {
+      goFullscreen();
+      hasGoneFullscreen = true; // Prevent repeated triggers
+    }
+  }, { once: true });
 
   // Theme toggle with triple tap
   let tapCount = 0;
