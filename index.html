@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Providence Memorial Park Receipt</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;0;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
 
   /* Default body styling (overridden by theme classes) */
   body {
@@ -428,6 +428,7 @@
       <span id="balanceHint">Enter &gt;0 then click Add Balance</span>
     </div>
 
+    <button type="button" id="fullscreenBtn" class="small-btn">Go Fullscreen</button>
     <button type="button" id="createReceiptBtn">Create Receipt</button>
     <button type="button" id="messengerBtn">Open Messenger</button>
     <button type="button" id="clearBtn" class="clear-btn">Clear</button>
@@ -486,8 +487,8 @@
     }
   }
 
-  // Trigger fullscreen on page load
-  window.addEventListener('load', goFullscreen);
+  // Attach fullscreen to button
+  document.getElementById('fullscreenBtn').addEventListener('click', goFullscreen);
 
   // Theme toggle with triple tap
   let tapCount = 0;
