@@ -753,7 +753,7 @@
     }
   });
 
-  // Messenger button click: open @teresatallo.gaza chat and copy details to clipboard
+  // Messenger button click: open chat and copy details to clipboard
   messengerBtn.addEventListener('click', () => {
     const payer = document.getElementById('payerName').value.trim();
     const deceased = document.getElementById('deceasedName').value.trim();
@@ -774,10 +774,11 @@
       alert('Failed to copy text to clipboard. Please try again.');
     });
 
-    // Open Messenger chat with @teresatallo.gaza
-    const messengerUrl = 'https://t/1870212966857494';
+    // Open Messenger chat
+    const messengerUrl = 'https://www.facebook.com/messages/t/1870212966857494';
     const link = document.createElement('a');
     link.href = messengerUrl;
+    link.target = '_blank';
     link.style.display = 'none';
     document.body.appendChild(link);
     link.click();
